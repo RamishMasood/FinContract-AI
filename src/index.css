@@ -1,0 +1,197 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99.5%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 262 47.4% 51.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 262 80% 70%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 199 92% 56%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 90%;
+    --radius: 0.65rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 6.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 7.5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 262 47.4% 51.2%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 215 37.2% 24.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 48% 29.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-legal-primary focus-visible:ring-offset-2;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+  }
+
+  body {
+    @apply bg-legal-background text-legal-text font-sans antialiased min-h-screen;
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl mb-2;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl mb-1;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+
+  p {
+    @apply leading-relaxed text-legal-muted;
+    font-size: 1.07rem;
+  }
+
+  a {
+    @apply transition-colors duration-150;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-legal-primary to-legal-secondary text-transparent bg-clip-text animate-fade-in;
+  }
+  
+  .contract-card {
+    @apply bg-white rounded-xl shadow-lg border border-gray-100 transition-transform hover:scale-[1.025] hover:shadow-xl p-6 duration-150;
+  }
+  
+  .btn-primary {
+    @apply bg-legal-primary hover:bg-legal-primary/90 text-white px-6 py-3 rounded-lg transition-colors shadow-md font-medium;
+  }
+  
+  .btn-secondary {
+    @apply bg-legal-secondary hover:bg-legal-secondary/90 text-white px-6 py-3 rounded-lg transition-colors shadow;
+  }
+  
+  .btn-accent {
+    @apply bg-legal-accent hover:bg-legal-accent/90 text-white px-6 py-3 rounded-lg transition-all shadow;
+  }
+  
+  .btn-outline {
+    @apply border border-legal-primary text-legal-primary hover:bg-legal-primary/5 px-6 py-3 rounded-lg transition-all;
+  }
+
+  .btn-ghost {
+    @apply !shadow-none !bg-transparent !border-0 hover:bg-gray-100 transition-all;
+  }
+
+  .shadow-card {
+    box-shadow: 0 6px 24px 0 rgb(42 30 94 / 8%);
+  }
+
+  /* Animations */
+  .animate-fade-in {
+    animation: fade-in 0.38s cubic-bezier(.37,.53,.38,1.01);
+  }
+  .animate-fade-out {
+    animation: fade-out 0.3s cubic-bezier(.55,.06,.68,.19);
+  }
+  .animate-scale-in {
+    animation: scale-in 0.23s cubic-bezier(.61,.24,.33,1.21);
+  }
+  .animate-scale-out {
+    animation: scale-out 0.18s cubic-bezier(.6,0,.73,.46);
+  }
+
+  /* Fancy subtle divider */
+  .divider-fancy {
+    @apply border-t border-dashed border-gray-200 my-8 mx-auto w-24;
+  }
+
+  /* Card glow for primary actions */
+  .glow-card {
+    box-shadow: 0 0 34px 0 rgb(110 89 165 / 0.07), 0 2px 4px 0 rgb(51 195 240 / 0.08);
+    border: 1.5px solid #f1effa;
+    @apply rounded-2xl;
+  }
+
+  /* Subtle surface backgrounds */
+  .surface {
+    @apply bg-gradient-to-br from-gray-50/85 to-gray-100/95 backdrop-blur-lg;
+  }
+}
+
+@media (max-width: 640px) {
+  .contract-card {
+    @apply px-4 py-4;
+  }
+  .btn-primary, .btn-secondary, .btn-accent, .btn-outline {
+    @apply px-4 py-2 text-base;
+  }
+}
+
+@keyframes fade-in {
+  0% { opacity:0; transform:translateY(10px);}
+  100% { opacity:1; transform:translateY(0);}
+}
+@keyframes fade-out {
+  0% { opacity:1; transform:translateY(0);}
+  100% { opacity:0; transform:translateY(10px);}
+}
+@keyframes scale-in {
+  0% { opacity:0; transform:scale(0.96);}
+  100% { opacity:1; transform:scale(1);}
+}
+@keyframes scale-out {
+  from {transform: scale(1);}
+  to {transform: scale(.96);}
+}
