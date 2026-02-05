@@ -90,8 +90,8 @@ const Header = ({ onLogout }: HeaderProps) => {
             <HeroLogoSmall />
           </span>
           <Link to="/" className="text-xl md:text-2xl font-bold flex items-center">
-            <span className="gradient-text text-lg md:text-2xl">Legal</span>
-            <span className="text-legal-text ml-1 text-lg md:text-2xl">Insight AI</span>
+            <span className="gradient-text text-lg md:text-2xl">FinContract</span>
+            <span className="text-legal-text ml-1 text-lg md:text-2xl">AI</span>
             {/* Plan badge appears to right of product name (desktop only) */}
             <span className="hidden md:inline">{user && <PlanBadge />}</span>
           </Link>

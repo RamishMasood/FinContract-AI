@@ -12,8 +12,8 @@ const AgreementGenerator = () => {
         <div className="container mx-auto px-4">
           <PremiumFeatureGuard 
             feature="ndaGenerator"
-            title="Auto NDA & Agreement Generator"
-            description="Generate professional NDAs and agreements instantly with AI-powered templates"
+            title="Compliant Agreement Generator"
+            description="Generate compliant NDAs and client trading agreements for brokers and fintech with AI-powered templates"
           >
             <AgreementGeneratorWidget />
           </PremiumFeatureGuard>

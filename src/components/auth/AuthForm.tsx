@@ -88,7 +88,7 @@ const AuthForm = ({ onAuthSuccess }: AuthFormProps) => {
     } else if (user) {
       toast({
         title: "Login successful",
-        description: "Welcome back to Legal Insight AI Pro.",
+        description: "Welcome back to FinContract AI.",
       });
       
       if (onAuthSuccess) {
@@ -160,7 +160,7 @@ const AuthForm = ({ onAuthSuccess }: AuthFormProps) => {
     } else if (user) {
       toast({
         title: "Account created",
-        description: "Welcome to Legal Insight AI Pro. Your free trial is activated.",
+        description: "Welcome to FinContract AI. Your free trial is activated.",
       });
       
       if (onAuthSuccess) {
@@ -434,7 +434,7 @@ const AuthForm = ({ onAuthSuccess }: AuthFormProps) => {
           <CardHeader>
             <CardTitle>Login</CardTitle>
             <CardDescription>
-              Sign in to your Legal Insight AI Pro account
+              Sign in to your FinContract AI account
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
@@ -494,7 +494,7 @@ const AuthForm = ({ onAuthSuccess }: AuthFormProps) => {
           <CardHeader>
             <CardTitle>Create an account</CardTitle>
             <CardDescription>
-              Start your free trial with Legal Insight AI Pro
+              Start your free trial with FinContract AI
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSignup}>

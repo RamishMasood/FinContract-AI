@@ -12,8 +12,8 @@ const DisputeEmail = () => {
         <div className="container mx-auto px-4">
           <PremiumFeatureGuard 
             feature="disputeResponse"
-            title="Email-Based Dispute Response"
-            description="Generate professional dispute response emails with AI assistance"
+            title="Dispute Response"
+            description="Generate professional dispute response emails for trading contract issues, payment disputes, and broker-client communications"
           >
             <EmailDisputeResponseWidget />
           </PremiumFeatureGuard>

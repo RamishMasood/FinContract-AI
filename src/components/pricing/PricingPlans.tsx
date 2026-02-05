@@ -170,7 +170,7 @@ const PricingPlans = ({ onSelectPlan }: PricingPlansProps) => {
           <span className="bg-gradient-to-r from-[#b96fdb] to-[#667eea] text-transparent bg-clip-text font-extrabold">Plan</span>
         </h2>
         <p className="text-legal-muted text-sm xs:text-base sm:text-xl text-center mb-6 sm:mb-12">
-          Start free and upgrade when you're ready for more advanced features
+          Start free with one analysis, then scale with compliance and risk tools for trading contracts
         </p>
         {/* Alert for not logged in */}
         {!user && (
@@ -315,9 +315,12 @@ const PricingPlans = ({ onSelectPlan }: PricingPlansProps) => {
 
       {/* Compare All Features Section */}
       <section className="w-full flex flex-col items-center py-10 sm:py-16 px-2 sm:px-4 bg-white">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
-          Compare All Features
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2">
+          Compare Compliance & Risk Features
         </h2>
+        <p className="text-legal-muted text-center mb-6 max-w-xl">
+          See what’s included in each plan for trading contract analysis and FinContract AI tools
+        </p>
         <div
           className="w-full max-w-5xl border-b border-legal-primary/10"
           style={{

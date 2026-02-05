@@ -64,16 +64,16 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				legal: {
-					primary: '#6E59A5',
-					secondary: '#9b87f5',
-					accent: '#33C3F0',
+					primary: '#1e3a5f',
+					secondary: '#2563eb',
+					accent: '#059669',
 					warning: '#F97316',
 					danger: '#ea384c',
 					success: '#10B981',
 					background: '#F8FAFC',
 					card: '#FFFFFF',
 					text: '#1A1F2C',
-					muted: '#8A898C'
+					muted: '#64748b'
 				}
 			},
 			borderRadius: {

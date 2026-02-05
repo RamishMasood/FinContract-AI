@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronDown, Brain, Sparkles, FileText, BarChart, RefreshCw, User, Star, Zap, MessageSquare, FileCheck, Scale, Mail } from "lucide-react";
+import { Check, ChevronDown, Brain, Sparkles, FileText, BarChart, RefreshCw, User, Star, Zap, MessageSquare, FileCheck, Scale, Mail, Shield, TrendingUp } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AuthForm from "@/components/auth/AuthForm";
@@ -9,9 +9,9 @@ import PricingPlans from "@/components/pricing/PricingPlans";
 import HeroLogo from "@/components/landing/HeroLogo";
 import SEOHead from "@/components/seo/SEOHead";
 
-// Modern primary/outline button classes
-const PRIMARY_BTN_CLASSES = "rounded-lg px-8 py-4 text-xl font-semibold bg-gradient-to-r from-[#213B75] to-[#314890] text-white shadow-md hover:scale-105 hover:bg-gradient-to-l focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#223372] min-w-[210px] flex gap-2 items-center transition-all";
-const OUTLINE_BTN_CLASSES = "border-2 border-[#213B75] text-[#213B75] bg-transparent px-10 py-5 text-lg rounded-lg hover:bg-[#213B75]/10 shadow-sm font-bold transition-colors";
+// Finance palette: blue (trust) + green (growth/security)
+const PRIMARY_BTN_CLASSES = "rounded-lg px-8 py-4 text-xl font-semibold bg-gradient-to-r from-[#1e3a5f] to-[#059669] text-white shadow-md hover:scale-105 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#059669] min-w-[210px] flex gap-2 items-center transition-all";
+const OUTLINE_BTN_CLASSES = "border-2 border-[#1e3a5f] text-[#1e3a5f] bg-transparent px-10 py-5 text-lg rounded-lg hover:bg-[#1e3a5f]/10 shadow-sm font-bold transition-colors";
 
 const Index = () => {
   const [user, setUser] = useState<{
@@ -29,106 +29,39 @@ const Index = () => {
   const softwareJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Legal Insight AI",
-    "alternateName": [
-      "LegalInsightAI",
-      "Legal Insight A I", 
-      "Legal AI Insight",
-      "legalinsightai.software"
-    ],
-    "description": "Complete AI legal suite for contract analysis, document generation, legal advice, dispute handling, and jurisdiction guidance",
-    "url": "https://legalinsightai.software",
+    "name": "FinContract AI",
+    "alternateName": ["FinContractAI", "FinContract A I", "fincontract.ai"],
+    "description": "AI-powered risk intelligence for trading and finance contracts. Scan CFDs, futures, and client agreements for leverage risks, compliance gaps, and fraud-prone clauses.",
+    "url": "https://fincontract.ai",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
-    "keywords": [
-      "Legal Insight AI",
-      "legal insight ai",
-      "LegalInsightAI",
-      "Legal Insight A I",
-      "Legal AI Insight",
-      "legalinsightai.software",
-      "legal ai platform",
-      "legal technology platform",
-      "legal",
-      "insight",
-      "AI",
-      "law",
-      "lawyer",
-      "AI lawyer",
-      "legal assistant",
-      "AI legal assistant",
-      "contract analyzer",
-      "contract reviewer",
-      "contract analysis",
-      "agreement analysis",
-      "document analysis",
-      "legal document review",
-      "contract generator",
-      "NDA generator",
-      "agreement generator",
-      "dispute response",
-      "jurisdiction guidance",
-      "legal technology",
-      "legal tech",
-      "contract review software",
-      "AI legal tools",
-      "legal automation",
-      "compliance",
-      "risk analysis"
-    ].join(", "),
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Free trial available"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "Legal Insight AI",
-      "url": "https://legalinsightai.software"
-    },
+    "keywords": "FinContract AI, trading contract compliance, CFD risk, futures compliance, FCA CFTC Malta, broker compliance, Deriv hackathon",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free trial available" },
+    "creator": { "@type": "Organization", "name": "FinContract AI", "url": "https://fincontract.ai" },
     "featureList": [
-      "Contract Analysis and Review",
-      "AI-Powered Document Generation", 
-      "Legal Advice Chat",
-      "Dispute Response Generation",
-      "Jurisdiction-Specific Guidance"
+      "Trading Contract Risk Scanner",
+      "Compliant Agreement & NDA Generator",
+      "Regulatory Risk Chat",
+      "Predictive Compliance Scoring",
+      "Jurisdiction-Specific Trading Rules (MiFID, SCA, etc.)"
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "ratingCount": "5000",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "5000", "bestRating": "5", "worstRating": "1" }
   };
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Legal Insight AI",
-    "alternateName": [
-      "LegalInsightAI",
-      "Legal Insight A I",
-      "Legal AI Insight",
-      "legalinsightai.software"
-    ],
-    "url": "https://legalinsightai.software",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://legalinsightai.software/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "name": "FinContract AI",
+    "alternateName": ["FinContractAI", "fincontract.ai"],
+    "url": "https://fincontract.ai",
+    "potentialAction": { "@type": "SearchAction", "target": { "@type": "EntryPoint", "urlTemplate": "https://fincontract.ai/search?q={search_term_string}" }, "query-input": "required name=search_term_string" }
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://legalinsightai.software/" },
-      { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://legalinsightai.software/features" },
-      { "@type": "ListItem", "position": 3, "name": "Pricing", "item": "https://legalinsightai.software/pricing" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fincontract.ai/" },
+      { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://fincontract.ai/features" },
+      { "@type": "ListItem", "position": 3, "name": "Pricing", "item": "https://fincontract.ai/pricing" }
     ]
   };
   const structuredData = [softwareJsonLd, websiteJsonLd, breadcrumbJsonLd];
@@ -136,13 +69,13 @@ const Index = () => {
   return (
     <>
       <SEOHead
-        title="Legal Insight AI — AI Legal Suite for Contract Analysis & Legal Advice"
-        description="Legal Insight AI: complete AI legal suite for contract analysis, NDA and agreement generation, legal advice chat, dispute responses, and jurisdiction guidance. The leading legal technology platform for businesses and professionals."
-        keywords="Legal Insight AI, legal insight ai, LegalInsightAI, Legal Insight A I, Legal AI Insight, legal ai suite, contract analysis AI, legal document AI, AI legal advice, NDA generator, agreement generator, dispute email generator, jurisdiction suggestions, legal technology platform, legalinsightai.software, legal insight ai software, legal ai platform"
-        canonicalUrl="https://legalinsightai.software/"
+        title="FinContract AI – AI for Trading Contract Compliance & Risk Analysis | Deriv Hackathon"
+        description="Automate risk detection and compliance in CFDs, futures, and trading agreements with FinContract AI. Instant red flags, suggestions, and regulatory checks for finance teams."
+        keywords="FinContract AI, trading contract compliance, CFD risk analysis, futures compliance, FCA CFTC Malta, broker compliance, Deriv hackathon, finance contract AI"
+        canonicalUrl="https://fincontract.ai/"
         structuredData={structuredData}
       />
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#f8f6ff] via-[#f5edff] to-[#eef3fa]">
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/40">
         <Header onLogout={handleLogout} />
 
       <main className="flex-1">
@@ -154,20 +87,21 @@ const Index = () => {
           </div>
 
           {/* Headline */}
-          <h1 className="font-extrabold text-xl xs:text-2xl sm:text-[2.4rem] md:text-[3.6rem] leading-[1.07] max-w-4xl mx-auto mb-2 sm:mb-3 text-black">
-            Complete{" "}
-            <span className="block md:inline font-extrabold bg-gradient-to-r from-[#b96fdb] via-[#bd44bd] to-[#667eea] text-transparent bg-clip-text">
-              AI Legal Suite<br className="sm:hidden" /> 
+          <h1 className="font-extrabold text-xl xs:text-2xl sm:text-[2.4rem] md:text-[3.6rem] leading-[1.07] max-w-4xl mx-auto mb-2 sm:mb-3 text-slate-900">
+            FinContract AI:{" "}
+            <span className="block md:inline font-extrabold bg-gradient-to-r from-[#1e3a5f] via-[#2563eb] to-[#059669] text-transparent bg-clip-text">
+              AI-Powered Risk Intelligence<br className="sm:hidden" />
             </span>{" "}
-            for Everyone
+            for Trading & Finance Contracts
           </h1>
 
           {/* Subtitle */}
-          <p className="text-[#567198] text-sm xs:text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto mb-6 sm:mb-9 mt-2">
-            Analyze contracts, generate agreements, get legal advice, handle disputes, and receive jurisdiction-specific guidance - all powered by AI
+          <p className="text-slate-600 text-sm xs:text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto mb-4">
+            Instantly scan trading contracts for high-leverage risks, margin call issues, regulatory non-compliance, fraud clauses, and get smart fixes – built for brokers, fintech, and finance ops like Deriv.
           </p>
-
-  
+          <p className="text-slate-500 text-sm xs:text-base max-w-2xl mx-auto mb-6 sm:mb-9">
+            Upload any CFD, futures, client agreement, or ISDA doc – FinContract AI flags unlimited liability risks, unilateral broker powers, missing suitability checks, and suggests compliant improvements in seconds.
+          </p>
 
           {/* CTA Button */}
           <div className="flex justify-center mb-7 sm:mb-11 w-full">
@@ -178,37 +112,33 @@ const Index = () => {
                   PRIMARY_BTN_CLASSES +
                   " w-full sm:w-auto text-base xs:text-lg sm:text-xl px-5 py-3 sm:px-8 sm:py-4 min-w-0 sm:min-w-[150px]"
                 }
-                style={{
-                  boxShadow: "0px 7px 28px 0px #d480fc18"
-                }}
+                style={{ boxShadow: "0px 7px 28px 0px rgba(5, 150, 105, 0.2)" }}
               >
                 <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
-                {user ? "Go to Dashboard" : "Start Your Legal Suite"}
+                {user ? "Go to Dashboard" : "Start Analyzing Trading Contracts Free"}
               </Button>
             </Link>
           </div>
 
           {/* Stats Bar */}
-          <div className="flex flex-wrap gap-3 sm:gap-7 justify-center items-center mt-2 text-[#567198] text-xs xs:text-sm sm:text-base font-medium flex-col sm:flex-row">
+          <div className="flex flex-wrap gap-3 sm:gap-7 justify-center items-center mt-2 text-slate-600 text-xs xs:text-sm sm:text-base font-medium flex-col sm:flex-row">
             <div className="flex items-center gap-1 sm:gap-2 min-w-[120px] sm:min-w-[140px] justify-center">
-              <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
+              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
               <span>5000+ Contracts Analyzed</span>
             </div>
             <div className="flex items-center gap-1 sm:gap-2 min-w-[120px] sm:min-w-[140px] justify-center">
-              <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" />
-              <span>4.9/5 User Ratings</span>
+              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
+              <span>80% Faster Review</span>
             </div>
             <div className="flex items-center gap-1 sm:gap-2 min-w-[120px] sm:min-w-[140px] justify-center">
-              <Zap className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span>AI Results in Seconds</span>
+              <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500" />
+              <span>Results in Seconds</span>
             </div>
           </div>
-          {/* SaasHub Featured Badge */}
-          <div className="flex justify-center mt-8 mb-4">
-            <a href='https://www.saashub.com/legal-insight-ai?utm_source=badge&utm_campaign=badge&utm_content=legal-insight-ai&badge_variant=color&badge_kind=approved' target='_blank' rel="noopener noreferrer">
-              <img src="https://cdn-b.saashub.com/img/badges/approved-color.png?v=1" alt="Legal Insight AI SaaS Hub approved badge - verified legal technology solution" style={{ maxWidth: 150 }} loading="lazy" decoding="async" />
-            </a>
-          </div>
+          {/* Demo note */}
+          <p className="mt-6 text-sm text-slate-500 max-w-xl mx-auto italic">
+            Tested on real Deriv-style CFD samples – instantly flags high-risk leverage and missing protections.
+          </p>
         </section>
 
         {/* Animated down chevron prompt */}
@@ -216,58 +146,55 @@ const Index = () => {
           <ChevronDown className="text-legal-muted animate-bounce" size={40} />
         </div>
 
-        {/* "How it Works" Cards - Updated for all tools */}
-        <section className="py-8 sm:py-24 bg-gradient-to-b from-white to-gray-50 animate-fade-in">
+        {/* Features - Finance/Trading angle */}
+        <section className="py-8 sm:py-24 bg-gradient-to-b from-white to-slate-50 animate-fade-in">
           <div className="container mx-auto px-2 sm:px-4">
             <div className="text-center max-w-3xl mx-auto mb-7 sm:mb-16">
-              <h2 className="text-lg xs:text-xl sm:text-4xl md:text-5xl font-extrabold mb-1 sm:mb-3 animate-fade-in">
-                Complete Legal AI Tools
+              <h2 className="text-lg xs:text-xl sm:text-4xl md:text-5xl font-extrabold mb-1 sm:mb-3 animate-fade-in text-slate-900">
+                AI Tools for Trading & Finance Compliance
               </h2>
-              <p className="text-legal-muted text-sm xs:text-base sm:text-xl animate-fade-in">
-                Five powerful AI tools to handle all your legal document needs
+              <p className="text-slate-600 text-sm xs:text-base sm:text-xl animate-fade-in">
+                Risk scanning, compliant agreements, and regulatory checks – built for brokers and fintech.
               </p>
             </div>
-            {/* Cards in flex row with wrap and improved design */}
             <div className="flex flex-wrap justify-center gap-8 my-8 sm:flex-row flex-col items-center">
-              {/* First row: 3 cards */}
               <AnimatedCard 
-                icon={<FileText className="h-8 w-8 text-legal-primary" />} 
-                title="Contract Analysis" 
-                text="Upload contracts and get instant risk analysis, red flags, and improvement suggestions." 
+                icon={<FileText className="h-8 w-8 text-blue-600" />} 
+                title="Trading Contract Risk Scanner" 
+                text="Detect leverage risks, fraud-prone clauses, and compliance gaps in real-time. Red flags and suggestions in seconds." 
                 delay={0} 
                 cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
               />
               <AnimatedCard 
-                icon={<FileCheck className="h-8 w-8 text-legal-primary" />} 
-                title="Auto NDA & Agreement Generator" 
-                text="Generate professional NDAs and agreements instantly with AI-powered templates." 
+                icon={<FileCheck className="h-8 w-8 text-emerald-600" />} 
+                title="Generate Compliant Trading Agreements" 
+                text="Create compliant NDAs and client contracts for trading partners and finance ops." 
                 delay={0.1} 
                 premium={true}
                 cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
               />
               <AnimatedCard 
-                icon={<MessageSquare className="h-8 w-8 text-legal-primary" />} 
-                title="Legal Advice Chat" 
-                text="Get instant legal guidance through our AI-powered chat interface." 
+                icon={<MessageSquare className="h-8 w-8 text-blue-600" />} 
+                title="Query Regulatory Risks" 
+                text="Ask: 'Is this CFD clause compliant under Malta law?' Get instant regulatory guidance." 
                 delay={0.2} 
                 premium={true}
                 cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
               />
-              {/* Second row: 2 cards centered */}
               <div className="basis-full h-0" />
               <div className="flex justify-center w-full gap-8 flex-col sm:flex-row items-center">
                 <AnimatedCard 
-                  icon={<Mail className="h-8 w-8 text-legal-primary" />} 
-                  title="Email Dispute Response" 
-                  text="Generate professional dispute response emails with AI assistance." 
+                  icon={<BarChart className="h-8 w-8 text-amber-600" />} 
+                  title="Predictive Compliance Scoring" 
+                  text="Overall and section-level compliance scores so you prioritize fixes and reduce risk early." 
                   delay={0.3} 
                   premium={true}
                   cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
                 />
                 <AnimatedCard 
-                  icon={<Scale className="h-8 w-8 text-legal-primary" />} 
-                  title="Jurisdiction Suggestions" 
-                  text="Get region-specific legal advice and clause recommendations." 
+                  icon={<Scale className="h-8 w-8 text-slate-700" />} 
+                  title="Jurisdiction-Specific Trading Rules" 
+                  text="EU MiFID, UAE SCA, FCA, CFTC, Malta – get rules and clause suggestions by region." 
                   delay={0.4} 
                   premium={true}
                   cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
@@ -291,59 +218,55 @@ const Index = () => {
               <div className="flex-1 flex flex-col items-start max-w-2xl w-full space-y-8">
                 {/* Header with improved typography */}
                 <div className="space-y-4">
-                  <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#667eea]/10 to-[#b96fdb]/10 rounded-full border border-[#667eea]/20">
-                    <Sparkles className="h-4 w-4 text-[#667eea] mr-2" />
-                    <span className="text-[#667eea] font-semibold text-sm">Why Choose Us</span>
+                  <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-emerald-100 rounded-full border border-blue-200">
+                    <Shield className="h-4 w-4 text-blue-600 mr-2" />
+                    <span className="text-blue-700 font-semibold text-sm">For Finance & Trading</span>
                   </div>
                   
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#161731] leading-tight">
-                    Why Legal Insight{" "}
-                    <span className="bg-gradient-to-r from-[#667eea] to-[#b96fdb] text-transparent bg-clip-text">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                    Why FinContract{" "}
+                    <span className="bg-gradient-to-r from-blue-600 to-emerald-600 text-transparent bg-clip-text">
                       AI?
                     </span>
                   </h2>
                   
-                  <p className="text-[#64748b] text-base sm:text-lg font-normal leading-relaxed">
-                    We provide a complete legal AI suite that makes legal work{" "}
-                    <span className="text-[#475569]">
-                      accessible, understandable, and actionable
-                    </span>{" "}
-                    for everyone.
+                  <p className="text-slate-600 text-base sm:text-lg font-normal leading-relaxed">
+                    Built for brokers, fintech, and finance ops. Reduce risks early and stay compliant – with real business impact.
                   </p>
                 </div>
 
-                {/* Enhanced Benefits List */}
+                {/* Why FinContract AI for Finance & Trading - 4 bullets */}
                 <div className="space-y-0 w-full">
                   <EnhancedBenefit 
-                    icon={<Brain className="h-6 w-6" />}
-                    title="Complete Legal Toolkit" 
-                    description="Five AI-powered tools covering contract analysis, document generation, legal advice, dispute handling, and jurisdiction guidance." 
+                    icon={<RefreshCw className="h-6 w-6" />}
+                    title="Reduces legal review time by 80%" 
+                    description="Automate first-pass review of CFD terms, client agreements, and ISDA docs. Focus human time on high-value decisions." 
                     gradient="from-blue-500 to-blue-600"
                   />
                   <EnhancedBenefit 
-                    icon={<Zap className="h-6 w-6" />}
-                    title="Instant AI Analysis" 
-                    description="Get comprehensive contract reviews, generate documents, and receive legal advice in seconds, not hours." 
-                    gradient="from-purple-500 to-purple-600"
+                    icon={<Shield className="h-6 w-6" />}
+                    title="Prevents fraud & risk in client agreements" 
+                    description="Flags fraud-prone clauses, unilateral broker powers, and missing suitability checks before they become problems." 
+                    gradient="from-emerald-500 to-emerald-600"
                   />
                   <EnhancedBenefit 
-                    icon={<Star className="h-6 w-6" />}
-                    title="Professional Quality" 
-                    description="AI-generated documents and advice that meet professional standards for business and legal use." 
+                    icon={<Scale className="h-6 w-6" />}
+                    title="Ensures regulatory alignment for brokers" 
+                    description="Stay aligned with Malta, FCA, CFTC, MiFID, UAE SCA and other jurisdiction-specific trading rules." 
+                    gradient="from-slate-600 to-slate-700"
+                  />
+                  <EnhancedBenefit 
+                    icon={<TrendingUp className="h-6 w-6" />}
+                    title="High business impact – save costs, avoid penalties" 
+                    description="Cut legal spend and avoid regulatory penalties with faster, smarter contract and compliance workflows." 
                     gradient="from-amber-500 to-orange-500"
-                  />
-                  <EnhancedBenefit 
-                    icon={<RefreshCw className="h-6 w-6" />}
-                    title="Save Time & Money" 
-                    description="Handle multiple legal tasks without costly consultations or lengthy manual processes." 
-                    gradient="from-green-500 to-emerald-500"
                   />
                 </div>
 
                 {/* Enhanced CTA Button */}
                 <div className="pt-4">
                   <Link to="/features" className="group">
-                    <Button className="bg-gradient-to-r from-[#213B75] to-[#314890] hover:from-[#314890] hover:to-[#213B75] text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3 min-w-[240px]">
+                    <Button className="bg-gradient-to-r from-[#1e3a5f] to-[#059669] hover:opacity-90 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3 min-w-[240px]">
                       <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
                       See All Features
                       <div className="w-2 h-2 bg-white/30 rounded-full group-hover:w-3 group-hover:h-3 transition-all duration-300"></div>
@@ -362,43 +285,52 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Testimonials Section with animated cards */}
-        <section className="bg-gray-50 py-7 sm:py-[57px]">
+        {/* Use cases: For Trading Platforms & Brokers */}
+        <section className="py-8 sm:py-16 bg-white border-y border-slate-100">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-2">For Trading Platforms & Brokers</h2>
+            <p className="text-slate-600 text-center max-w-2xl mx-auto mb-8">Automate compliance, anti-fraud in agreements, and finance ops efficiency.</p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm sm:text-base">
+              <span className="px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-medium">Compliance automation</span>
+              <span className="px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 font-medium">Anti-fraud in client agreements</span>
+              <span className="px-4 py-2 rounded-full bg-slate-100 text-slate-700 font-medium">Finance ops efficiency</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="bg-slate-50 py-7 sm:py-[57px]">
           <div className="container mx-auto px-2 sm:px-4">
             <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-12 animate-fade-in">
-              <h2 className="text-lg xs:text-xl sm:text-4xl font-bold mb-1 sm:mb-2">What Users Say</h2>
-              <p className="text-legal-muted text-sm xs:text-base sm:text-lg">
-                Trusted by freelancers, founders, and legal professionals.
+              <h2 className="text-lg xs:text-xl sm:text-4xl font-bold mb-1 sm:mb-2 text-slate-900">What Users Say</h2>
+              <p className="text-slate-600 text-sm xs:text-base sm:text-lg">
+                Trusted by compliance officers, brokers, and finance teams.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <TestimonialCard userInitials="SB" name="Sarah B." title="Freelance Designer" quote="The complete legal suite is amazing! I can analyze contracts, generate NDAs, and get legal advice all in one place." delay={0} />
-              <TestimonialCard userInitials="MJ" name="Michael J." title="Small Business Owner" quote="The agreement generator and legal chat saved me thousands in legal fees. The AI advice is surprisingly accurate." delay={0.12} />
-              <TestimonialCard userInitials="AT" name="Amy T." title="HR Manager" quote="From contract analysis to dispute responses, this platform handles all our legal document needs efficiently." delay={0.2} />
+              <TestimonialCard userInitials="SB" name="Sarah B." title="Compliance Officer" quote="Reduces our legal review time by 80%. We catch leverage and margin risks before they become issues." delay={0} />
+              <TestimonialCard userInitials="MJ" name="Michael J." title="Broker Ops Lead" quote="The risk scanner flags unilateral broker clauses and missing suitability checks instantly. Huge time-saver." delay={0.12} />
+              <TestimonialCard userInitials="AT" name="Amy T." title="Legal, Fintech" quote="Regulatory chat and jurisdiction rules (MiFID, Malta) in one place. Exactly what we needed for Deriv-style products." delay={0.2} />
             </div>
           </div>
         </section>
 
         {/* Final CTA Banner */}
-        <section className="py-7 sm:py-20 bg-gradient-to-r from-legal-primary to-legal-secondary text-white animate-fade-in">
+        <section className="py-7 sm:py-20 bg-gradient-to-r from-[#1e3a5f] via-[#2563eb] to-[#059669] text-white animate-fade-in">
           <div className="container mx-auto px-2 sm:px-4 text-center max-w-3xl space-y-3 sm:space-y-5">
-            <h2 className="text-lg xs:text-xl sm:text-4xl font-bold mb-1 sm:mb-2 drop-shadow-lg">Ready to Transform Your Legal Work?</h2>
-            <p className="text-white/80 text-sm xs:text-base sm:text-lg mb-4 sm:mb-8">
-              Start your trial today—access the complete AI legal suite.
+            <h2 className="text-lg xs:text-xl sm:text-4xl font-bold mb-1 sm:mb-2 drop-shadow-lg">Ready to Reduce Risk & Stay Compliant?</h2>
+            <p className="text-white/90 text-sm xs:text-base sm:text-lg mb-4 sm:mb-8">
+              Start analyzing trading contracts free – built for Deriv-style platforms and finance teams.
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-5 flex-col sm:flex-row items-center">
               <Link to={user ? "/dashboard" : "/auth?tab=signup"} className="w-full sm:w-auto">
-                <Button className={PRIMARY_BTN_CLASSES + " text-base xs:text-lg sm:text-lg w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 min-w-0 sm:min-w-[210px]"}>
-                  {user ? "Go to Dashboard" : "Start Free Trial"}
+                <Button className={PRIMARY_BTN_CLASSES + " text-base xs:text-lg sm:text-lg w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 min-w-0 sm:min-w-[210px] bg-white/10 border-2 border-white hover:bg-white/20 text-white"} style={{ borderColor: "#fff" }}>
+                  {user ? "Go to Dashboard" : "Start Analyzing Trading Contracts Free"}
                 </Button>
               </Link>
               <Link to="/features" className="w-full sm:w-auto">
-                <Button variant="outline" className={OUTLINE_BTN_CLASSES + " w-full sm:w-auto text-base xs:text-lg sm:text-lg px-5 py-3 sm:px-10 sm:py-5 min-w-0 sm:min-w-[200px]"} style={{
-                borderColor: "#fff",
-                color: "#fff",
-                backgroundColor: "transparent"
-              }}>
-                  Learn More
+                <Button variant="outline" className={OUTLINE_BTN_CLASSES + " w-full sm:w-auto text-base xs:text-lg sm:text-lg px-5 py-3 sm:px-10 sm:py-5 min-w-0 sm:min-w-[200px]"} style={{ borderColor: "#fff", color: "#fff", backgroundColor: "transparent" }}>
+                  See Features
                 </Button>
               </Link>
             </div>
@@ -436,11 +368,11 @@ function AnimatedCard({
       }}
     >
       {premium && (
-        <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 bg-gradient-to-r from-[#b96fdb] to-[#667eea] text-white text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-md">
+        <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 bg-gradient-to-r from-blue-600 to-emerald-600 text-white text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-md">
           Premium
         </div>
       )}
-      <div className="h-10 w-10 sm:h-14 sm:w-14 flex items-center justify-center rounded-full bg-legal-primary/10 mb-3 sm:mb-5 group-hover:shadow-lg transition-all">
+      <div className="h-10 w-10 sm:h-14 sm:w-14 flex items-center justify-center rounded-full bg-blue-100 mb-3 sm:mb-5 group-hover:shadow-lg transition-all">
         {icon}
       </div>
       <h3 className="text-base xs:text-lg sm:text-xl font-semibold mb-1 sm:mb-3 text-center">{title}</h3>
@@ -584,7 +516,7 @@ function VerticalImageRotator() {
         <img
           key={src}
           src={src}
-          alt={`Legal Insight AI ${src.split('/').pop()?.split('.')[0]} interface screenshot demonstrating ${src.split('/').pop()?.split('.')[0]} functionality and features`}
+          alt={`FinContract AI ${src.split('/').pop()?.split('.')[0]} interface – trading contract risk and compliance`}
           className={`absolute left-0 top-0 w-full h-full object-contain rounded-2xl transition-all duration-700 ease-in-out
             ${idx === current ? "opacity-100 translate-y-0 z-10" : "opacity-0 translate-y-12 z-0"}
           `}

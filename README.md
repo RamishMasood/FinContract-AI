@@ -1,73 +1,39 @@
-# Welcome to Legal Insight AI
+# FinContract AI
+
+**Deriv AI Talent Sprint Hackathon** – AI for trading/finance contract compliance & risk management.
 
 ## Project info
 
-**URL**: https://legalinsightai.software
+**URL**: https://fincontract.ai (suggested; use your deployment URL)
+
+FinContract AI scans CFDs, futures, client agreements, and ISDA docs for leverage risks, margin call issues, regulatory non-compliance, and fraud-prone clauses. Built for brokers, fintech, and finance ops (e.g. Deriv-style platforms).
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
-
-**Use Legal Insight AI Platform**
-
-Simply visit the [Legal Insight AI Project](https://legalinsightai.software) and start prompting.
-
-Changes made via the Legal Insight AI platform will be committed automatically to this repo.
-
 **Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in the Legal Insight AI platform.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Clone the repo and run locally:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
 npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+**Technologies**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Vite, TypeScript, React
+- shadcn-ui, Tailwind CSS
 
-**Use GitHub Codespaces**
+## Deploy
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Build and deploy to your host (e.g. Netlify, Vercel, or your platform):
 
-## What technologies are used for this project?
+```sh
+npm run build
+```
 
-This project is built with:
+## Custom domain
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open the [Legal Insight AI Platform](https://legalinsightai.software) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Legal Insight AI project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://legalinsightai.software/docs/custom-domain)
+Configure your domain (e.g. fincontract.ai or fincontractai.com) in your hosting provider’s settings.

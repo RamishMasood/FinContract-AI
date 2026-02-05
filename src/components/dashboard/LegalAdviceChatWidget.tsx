@@ -247,11 +247,11 @@ export default function LegalAdviceChatWidget() {
     setShowHistory(false);
   };
   return <section className="bg-white rounded-lg shadow-sm border p-5 my-4">
-      <h3 className="text-lg font-bold flex items-center gap-2 mb-2">
-        <Activity className="h-5 w-5" /> Legal Advice in Chat Format
+      <h3 className="text-lg font-bold flex items-center gap-2 mb-2 text-slate-900">
+        <Activity className="h-5 w-5 text-blue-600" /> Regulatory Risk Chat
       </h3>
       <div className="flex items-center justify-between mb-2">
-        <Button size="sm" variant="secondary" onClick={handleNewChat} className="mr-2 bg-blue-900 hover:bg-blue-800 text-slate-50">
+        <Button size="sm" variant="secondary" onClick={handleNewChat} className="mr-2 bg-[#1e3a5f] hover:bg-[#2563eb] text-slate-50">
           New Chat
         </Button>
         <Button size="sm" variant="ghost" onClick={() => setShowHistory(show => !show)} className="flex items-center">
@@ -278,7 +278,7 @@ export default function LegalAdviceChatWidget() {
         Your conversations are saved so you can review them later.
       </p>
       <div className="flex gap-2 mb-2">
-        <Input value={question} onChange={e => setQuestion(e.target.value)} placeholder="Type your legal question..." onKeyDown={e => {
+        <Input value={question} onChange={e => setQuestion(e.target.value)} placeholder="e.g. Is this leverage clause MiFID II compliant?" onKeyDown={e => {
         if (e.key === "Enter" && !loading) handleSend();
       }} disabled={loading} />
         <Button size="sm" onClick={handleSend} disabled={loading}>
@@ -294,7 +294,7 @@ export default function LegalAdviceChatWidget() {
       >
         {chat.length === 0 && <p className="text-gray-400 text-sm">No chat yet.</p>}
         {chat.map((msg, idx) => <div key={idx} className="py-[2px] my-[10px]">
-            <div className={`inline-block px-3 py-2 rounded-lg max-w-[90%] break-words ${msg.role === "user" ? "bg-legal-primary text-white" : "bg-gray-200 text-gray-700"}`}>
+            <div className={`inline-block px-3 py-2 rounded-lg max-w-[90%] break-words ${msg.role === "user" ? "bg-[#1e3a5f] text-white" : "bg-slate-200 text-slate-800"}`}>
               {msg.role === "ai" ? <ExpandableMessage content={msg.content} isAI={true} /> : <ExpandableMessage content={msg.content} />}
             </div>
           </div>)}

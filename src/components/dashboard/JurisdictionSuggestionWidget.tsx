@@ -128,17 +128,17 @@ export default function JurisdictionSuggestionWidget() {
 
   return (
     <section className="bg-white rounded-lg shadow-sm border p-5 my-4">
-      <h3 className="text-lg font-bold flex items-center gap-2 mb-2">
-        <FileSearch className="h-5 w-5" /> Jurisdiction-Based Suggestions
+      <h3 className="text-lg font-bold flex items-center gap-2 mb-2 text-slate-900">
+        <FileSearch className="h-5 w-5 text-blue-600" /> Jurisdiction-Specific Rules
       </h3>
-      <p className="text-sm text-legal-muted mb-3">
-        Get detailed regional tips for clauses, taxes, legal provisions, example contract clauses, penalties, compliance steps, and negotiation strategies (e.g., "UK", "Pakistan", "Canada").
+      <p className="text-sm text-slate-600 mb-3">
+        Get trading and compliance rules by region: Malta MFSA, UK FCA, US CFTC, UAE SCA, EU MiFID II. Include clause suggestions and regulatory requirements.
       </p>
       <div className="flex gap-2 mb-2">
         <Input
           value={region}
           onChange={(e) => setRegion(e.target.value)}
-          placeholder="Enter region/country..."
+          placeholder="e.g. Malta, UK, UAE, EU, USA"
           disabled={loading}
         />
         <Button size="sm" onClick={handleSuggest} disabled={loading}>

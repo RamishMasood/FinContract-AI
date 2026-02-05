@@ -369,7 +369,7 @@ class ContractAnalysisService {
       ],
       processingMetrics: {
         documentPages: pageEstimate,
-        processingTimeSeconds: 2.5,
+        processingTimeSeconds: 0,
         wordsAnalyzed: wordCount
       }
     };

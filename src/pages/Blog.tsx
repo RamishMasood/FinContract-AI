@@ -48,13 +48,13 @@ const Blog = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Legal Insight AI Blog",
-    "description": "Expert insights on contract law, legal document analysis, and AI-powered legal technology",
-    "url": "https://legalinsightai.software/blog",
+    "name": "FinContract AI Blog",
+    "description": "Expert insights on trading contract compliance, finance contract risk, and AI-powered compliance technology",
+    "url": "https://fincontract.ai/blog",
     "publisher": {
       "@type": "Organization",
-      "name": "Legal Insight AI",
-      "url": "https://legalinsightai.software"
+      "name": "FinContract AI",
+      "url": "https://fincontract.ai"
     },
     "blogPost": posts.map(post => ({
       "@type": "BlogPosting",
@@ -67,7 +67,7 @@ const Blog = () => {
       },
       "publisher": {
         "@type": "Organization", 
-        "name": "Legal Insight AI"
+        "name": "FinContract AI"
       }
     }))
   };
@@ -75,10 +75,10 @@ const Blog = () => {
   return (
     <>
       <SEOHead
-        title="Expert Legal Technology Insights - Legal Insight AI Blog"
-        description="Stay updated with the latest insights on contract law, legal document analysis, AI-powered legal technology, and industry best practices from our expert team."
-        keywords="legal blog, contract law insights, legal technology news, AI legal trends, legal document analysis tips, legal industry updates, legal automation insights"
-        canonicalUrl="https://legalinsightai.software/blog"
+        title="Trading & Finance Compliance Insights - FinContract AI Blog"
+        description="Stay updated on trading contract compliance, CFD and futures risk, regulatory updates, and AI-powered compliance for brokers and fintech."
+        keywords="FinContract AI blog, trading contract compliance, finance compliance, CFD risk, regulatory updates"
+        canonicalUrl="https://fincontract.ai/blog"
         structuredData={structuredData}
         additionalMeta={[
           { name: "robots", content: "index,follow,noarchive" }
@@ -89,8 +89,8 @@ const Blog = () => {
         
         <main className="flex-1 bg-gray-50 py-12">
           <div className="container mx-auto px-4">
-            <h1 className="text-3xl font-bold mb-2">Legal Insight Blog</h1>
-            <p className="text-legal-muted mb-8">Expert insights on contract law and legal document analysis</p>
+            <h1 className="text-3xl font-bold mb-2">FinContract AI Blog</h1>
+            <p className="text-slate-600 mb-8">Insights on trading contract compliance and finance risk</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map(post => (

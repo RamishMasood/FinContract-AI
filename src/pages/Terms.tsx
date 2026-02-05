@@ -9,10 +9,10 @@ const Terms = () => {
   return (
     <>
       <SEOHead
-        title="Terms of Service - Legal Insight AI"
-        description="Read Legal Insight AI's terms of service covering AI legal analysis, subscriptions, free trials, and user responsibilities for our legal technology platform."
-        keywords="legal AI terms, contract analysis terms, legal software terms, AI legal tools terms of service, legal technology terms"
-        canonicalUrl="https://legalinsightai.software/terms"
+        title="Terms of Service - FinContract AI"
+        description="Read FinContract AI's terms of service covering trading contract analysis, subscriptions, free trials, and user responsibilities."
+        keywords="FinContract AI terms, trading contract compliance terms, finance AI terms of service"
+        canonicalUrl="https://fincontract.ai/terms"
         noIndex={true}
       />
       <div className="flex flex-col min-h-screen">
@@ -25,7 +25,7 @@ const Terms = () => {
             <div className="space-y-3">
               <h2 className="text-xl font-bold">1. Introduction</h2>
               <p className="text-legal-muted">
-                These Terms of Service govern your use of Legal Insight AI, accessible at legalinsightai.com. 
+                These Terms of Service govern your use of FinContract AI, accessible at fincontract.ai. 
                 By using our service, you agree to be bound by these Terms. If you disagree with any part of 
                 these terms, you may not access the service.
               </p>
@@ -60,7 +60,7 @@ const Terms = () => {
             <div className="space-y-3">
               <h2 className="text-xl font-bold">5. Use of AI Analysis</h2>
               <p className="text-legal-muted">
-                The analysis provided by Legal Insight AI is generated using artificial intelligence and 
+                The analysis provided by FinContract AI is generated using artificial intelligence and 
                 should not be considered legal advice. Always consult with a qualified attorney before making 
                 legal decisions or signing contracts based on our analysis.
               </p>
@@ -78,7 +78,7 @@ const Terms = () => {
             <div className="space-y-3">
               <h2 className="text-xl font-bold">7. Contact Us</h2>
               <p className="text-legal-muted">
-                If you have any questions about these Terms, please contact us at legal@legalinsightai.com.
+                If you have any questions about these Terms, please contact us at legal@fincontract.ai.
               </p>
             </div>
           </div>

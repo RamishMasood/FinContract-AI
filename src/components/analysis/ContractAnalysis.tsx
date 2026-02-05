@@ -18,11 +18,18 @@ import AnalysisSummary from "./AnalysisSummary";
 import ContractComparison from "./ContractComparison";
 import AnalysisRedFlags from "./AnalysisRedFlags";
 import AnalysisSuggestions from "./AnalysisSuggestions";
+import RiskChart from "@/components/dashboard/RiskChart";
+import PredictiveSuggestions from "@/components/dashboard/PredictiveSuggestions";
+import ProactiveAlerts from "@/components/dashboard/ProactiveAlerts";
+import AuditLog from "@/components/dashboard/AuditLog";
+import { addAuditLog } from "@/components/dashboard/AuditLog";
 import contractAnalysisService, { AnalysisResponse } from "@/services/contractAnalysisService";
 import { useQuery } from "@tanstack/react-query";
 import { Database } from "@/integrations/supabase/types";
 import usePlanUsage from "@/hooks/usePlanUsage";
 import { usePlanFeatureAccess } from "@/hooks/usePlanFeatureAccess";
+import { exportToWord } from "@/utils/wordExport";
+import { FileDown } from "lucide-react";
 
 type DocumentWithAnalysis = Database["public"]["Tables"]["documents"]["Row"] & {
   analysis_data?: AnalysisResponse | null;
@@ -74,9 +81,9 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
           },
           clauseExplanations: Array.isArray(analysisData.clauseExplanations) ? analysisData.clauseExplanations : [],
           processingMetrics: analysisData.processingMetrics || {
-            documentPages: documentData.pages || 1,
-            processingTimeSeconds: 3,
-            wordsAnalyzed: 500
+            documentPages: documentData.pages ?? 0,
+            processingTimeSeconds: 0,
+            wordsAnalyzed: 0
           }
         };
       }
@@ -108,15 +115,23 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
   const { clauseExplanations: hasClauseExplanationsAccess } = usePlanFeatureAccess();
 
   useEffect(() => {
-    if (analysis) {
+    if (analysis && documentId) {
       console.log("Analysis data loaded:", {
         redFlagsCount: analysis.redFlags?.length || 0,
         suggestedEditsCount: analysis.suggestedEdits?.length || 0,
         missingClausesCount: analysis.missingClauses?.length || 0,
         clauseExplanationsCount: analysis.clauseExplanations?.length || 0
       });
+      
+      // Log analysis to audit trail
+      addAuditLog({
+        action: 'analysis',
+        documentName: documentData?.title || 'Unknown',
+        details: `Analysis completed: ${analysis.redFlags?.length || 0} red flags, ${analysis.suggestedEdits?.length || 0} suggestions`,
+        userId: 'current-user' // In real app, get from auth context
+      });
     }
-  }, [analysis]);
+  }, [analysis, documentId, documentData]);
 
   useEffect(() => {
     if (error) {
@@ -207,29 +222,31 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
   
   const renderProcessingMetrics = () => {
     if (!analysis || !analysis.processingMetrics) return null;
-    
+
     const { documentPages, processingTimeSeconds, wordsAnalyzed } = analysis.processingMetrics;
-    
+
     return (
       <div className="flex flex-wrap justify-center gap-6 mt-4 mb-6">
         <div className="flex items-center gap-2">
           <Clock className="h-5 w-5 text-legal-primary" />
           <div>
-            <div className="text-2xl font-bold">{processingTimeSeconds.toFixed(1)}s</div>
+            <div className="text-2xl font-bold">
+              {processingTimeSeconds > 0 ? `${processingTimeSeconds.toFixed(1)}s` : "—"}
+            </div>
             <div className="text-xs text-legal-muted">Processing Time</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <FileText className="h-5 w-5 text-legal-primary" />
           <div>
-            <div className="text-2xl font-bold">{documentPages}</div>
+            <div className="text-2xl font-bold">{documentPages > 0 ? documentPages : "—"}</div>
             <div className="text-xs text-legal-muted">Pages Analyzed</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-legal-primary" />
           <div>
-            <div className="text-2xl font-bold">{wordsAnalyzed}</div>
+            <div className="text-2xl font-bold">{wordsAnalyzed > 0 ? wordsAnalyzed : "—"}</div>
             <div className="text-xs text-legal-muted">Words Analyzed</div>
           </div>
         </div>
@@ -239,67 +256,55 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
   
   const renderRiskScore = () => {
     if (!analysis || !analysis.riskScore) return null;
-    
+
     const { overall, sections } = analysis.riskScore;
-    
+    // Compliance score 0–100: lower = riskier. Red when score ≤30, amber 31–60, green >60.
+    const overallRiskClass = overall <= 30 ? 'text-red-600' : overall <= 60 ? 'text-amber-600' : 'text-green-600';
+    const overallBarClass = overall <= 30 ? 'bg-red-500' : overall <= 60 ? 'bg-amber-500' : 'bg-green-500';
+
     return (
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
-          <h4 className="font-medium">Overall Risk Score</h4>
+          <h4 className="font-medium">Overall Compliance Score</h4>
           <div className="flex items-center">
-            <div 
-              className={`text-lg font-bold ${
-                overall > 75 
-                  ? 'text-red-600' 
-                  : overall > 50 
-                  ? 'text-amber-600' 
-                  : 'text-green-600'
-              }`}
-            >
+            <div className={`text-lg font-bold ${overallRiskClass}`}>
               {overall}/100
             </div>
           </div>
         </div>
         <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
-          <div 
-            className={`h-full ${
-              overall > 75 
-                ? 'bg-red-500' 
-                : overall > 50 
-                ? 'bg-amber-500' 
-                : 'bg-green-500'
-            }`} 
-            style={{ width: `${overall}%` }}
-          ></div>
+          <div
+            className={`h-full ${overallBarClass}`}
+            style={{ width: `${Math.min(100, Math.max(0, overall))}%` }}
+          />
         </div>
-        
-        <h4 className="font-medium mt-6 mb-3">Section Risks</h4>
+        <p className="text-xs text-legal-muted mt-1">Lower score = higher risk. Red flags and issues reduce the score.</p>
+
+        <h4 className="font-medium mt-6 mb-3">Section Compliance Scores</h4>
         <div className="space-y-4">
-          {sections.map((section, index) => (
+          {sections.map((section, index) => {
+            const score = Math.min(100, Math.max(0, section.score));
+            const sectionRiskClass = score <= 30 ? 'bg-red-500' : score <= 60 ? 'bg-amber-500' : 'bg-green-500';
+            return (
             <div key={index}>
               <div className="flex items-center justify-between mb-1">
                 <div className="text-sm">{section.name}</div>
-                <div className="text-sm font-medium">{section.score}/100</div>
+                <div className="text-sm font-medium">{score}/100{section.issues > 0 && <span className="text-legal-muted ml-1">({section.issues} issues)</span>}</div>
               </div>
               <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                <div 
-                  className={`h-full ${
-                    section.score > 75 
-                      ? 'bg-red-500' 
-                      : section.score > 50 
-                      ? 'bg-amber-500' 
-                      : 'bg-green-500'
-                  }`} 
-                  style={{ width: `${section.score}%` }}
-                ></div>
+                <div
+                  className={`h-full ${sectionRiskClass}`}
+                  style={{ width: `${score}%` }}
+                />
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     );
   };
-  
+
   const renderClauseExplanations = () => {
     // Check if user has access to clause explanations
     if (!hasClauseExplanationsAccess) {
@@ -415,10 +420,15 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
   return (
     <div className="bg-white rounded-lg shadow-sm">
       <div className="border-b border-gray-100 p-4 md:p-6">
-        <h2 className="text-xl font-bold mb-2">Contract Analysis Results</h2>
-        <p className="text-legal-muted">
-          AI-powered analysis of your contract with highlighted risks and suggestions
+        <h2 className="text-xl font-bold mb-2 text-slate-900">Trading Contract Analysis Results</h2>
+        <p className="text-slate-600">
+          AI-powered risk analysis with leverage detection, compliance gaps, and fraud-prone clause identification
         </p>
+        
+        {/* Proactive Alerts */}
+        {analysis && <div className="mt-4">
+          <ProactiveAlerts analysis={analysis} jurisdiction="malta" />
+        </div>}
         
         {/* Responsive metrics */}
         <div className="w-full">
@@ -430,7 +440,7 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
         {/* Responsive tab list with horizontal scroll on mobile */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border-b border-gray-100 gap-y-3">
           <TabsList
-            className="flex md:grid md:grid-cols-5 w-full overflow-x-auto whitespace-nowrap gap-2 scrollbar-thin scrollbar-thumb-gray-200"
+            className="flex md:grid md:grid-cols-6 w-full overflow-x-auto whitespace-nowrap gap-2 scrollbar-thin scrollbar-thumb-gray-200"
             style={{ WebkitOverflowScrolling: "touch" }}
           >
             <TabsTrigger value="summary" className="min-w-max">Summary</TabsTrigger>
@@ -452,13 +462,22 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
             </TabsTrigger>
             <TabsTrigger value="comparison" className="min-w-max">Compare</TabsTrigger>
             <TabsTrigger value="explanation" className="min-w-max">Explanations</TabsTrigger>
+            <TabsTrigger value="audit" className="min-w-max">Audit Log</TabsTrigger>
           </TabsList>
         </div>
         
         {/* Responsive tab content */}
         <div className="p-2 sm:p-4 md:p-6">
           <TabsContent value="summary" className="mt-0">
-            <div className="w-full">
+            <div className="w-full space-y-6">
+              {/* Risk Chart */}
+              {analysis && analysis.riskScore && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <RiskChart riskScore={analysis.riskScore} redFlagsCount={analysis.redFlags?.length || 0} />
+                  <PredictiveSuggestions analysis={analysis} contractType="cfd" />
+                </div>
+              )}
+              
               {renderRiskScore()}
               <AnalysisSummary 
                 summary={analysis.summary} 
@@ -493,6 +512,12 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
               {renderClauseExplanations()}
             </div>
           </TabsContent>
+          
+          <TabsContent value="audit" className="mt-0">
+            <div className="w-full">
+              <AuditLog documentId={documentId} />
+            </div>
+          </TabsContent>
         </div>
       </Tabs>
       
@@ -521,7 +546,7 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
         </Button>
         
         <Button
-          className={`flex items-center gap-2 w-full sm:w-auto ${isDownloadImprovementsLocked ? 'bg-gray-200 text-gray-400 cursor-not-allowed border border-gray-200' : 'bg-legal-primary hover:bg-legal-primary/90 text-white'}`}
+          className={`flex items-center gap-2 w-full sm:w-auto ${isDownloadImprovementsLocked ? 'bg-gray-200 text-gray-400 cursor-not-allowed border border-gray-200' : 'bg-gradient-to-r from-[#1e3a5f] to-[#059669] hover:opacity-90 text-white'}`}
           disabled={isDownloadImprovementsLocked}
           onClick={() => handleDownload("suggestions")}
           title={isDownloadImprovementsLocked ? "Available with paid plans. Upgrade to unlock this feature." : ""}
@@ -529,6 +554,31 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
           <FileText className="h-4 w-4" />
           <span>Download Suggested Improvements</span>
         </Button>
+        
+        {analysis && (
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 w-full sm:w-auto border-blue-300 text-blue-700 hover:bg-blue-50"
+            onClick={() => {
+              exportToWord({
+                title: documentData?.title || 'Trading Contract',
+                summary: analysis.summary,
+                redFlags: analysis.redFlags || [],
+                suggestions: analysis.suggestedEdits || [],
+                riskScore: analysis.riskScore?.overall || 0
+              });
+              addAuditLog({
+                action: 'export',
+                documentName: documentData?.title || 'Unknown',
+                details: 'Exported analysis to Word format',
+                userId: 'current-user'
+              });
+            }}
+          >
+            <FileDown className="h-4 w-4" />
+            <span>Export to Word</span>
+          </Button>
+        )}
       </div>
     </div>
   );

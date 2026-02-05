@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import UploadForm from "@/components/dashboard/UploadForm";
+import TradingTemplateSelector from "@/components/dashboard/TradingTemplateSelector";
 import { ChevronLeft } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
 import usePlanUsage from "@/hooks/usePlanUsage";
+import { TradingTemplate } from "@/constants/tradingTemplates";
 const DocumentUpload = () => {
+  const [selectedTemplate, setSelectedTemplate] = useState<TradingTemplate | null>(null);
   const {
     user,
     loading: authLoading
@@ -36,11 +39,11 @@ const DocumentUpload = () => {
     if (!isLoading && limitReached) {
       let message = "";
       if (isPlanExpired) {
-        message = "Your subscription has expired. Please renew to continue analyzing documents.";
+        message = "Your subscription has expired. Please renew to continue analyzing trading contracts.";
       } else if (planId === "free") {
-        message = "You've used your 1 free analysis this month. Upgrade to analyze more documents.";
+        message = "You've used your 1 free analysis this month. Upgrade to analyze more trading contracts.";
       } else if (planId === "pay-per-use") {
-        message = "You've used your pay-per-document purchase. Buy another to analyze more documents.";
+        message = "You've used your pay-per-document purchase. Buy another to analyze more trading contracts.";
       }
       toast({
         title: "Upload limit reached",
@@ -74,11 +77,11 @@ const DocumentUpload = () => {
               </Link>
             </div>
             <div className="bg-white rounded-lg shadow-md p-8 flex flex-col items-center text-center">
-              <h2 className="text-2xl font-bold mb-2">Upload Limit Reached</h2>
-              <p className="mb-4 text-legal-muted">
+              <h2 className="text-2xl font-bold mb-2 text-slate-900">Upload Limit Reached</h2>
+              <p className="mb-4 text-slate-600">
                 {upgradeMessage}
               </p>
-              <Link to="/pricing" className="inline-block mt-2 px-5 py-3 bg-legal-primary text-white rounded-lg font-semibold hover:bg-legal-primary/90 transition">
+              <Link to="/pricing" className="inline-block mt-2 px-5 py-3 bg-gradient-to-r from-[#1e3a5f] to-[#059669] text-white rounded-lg font-semibold hover:opacity-90 transition">
                 {upgradeAction}
               </Link>
             </div>
@@ -97,10 +100,17 @@ const DocumentUpload = () => {
               <span>Back to Dashboard</span>
             </Link>
           </div>
-          <div className="text-center mb-4">
-            <p className="text-sm text-legal-muted">Please upload a soft copy of your document. Scanned copies are not recommended, as they may not be readable.</p>
+          <div className="text-center mb-6">
+            <p className="text-sm text-slate-600">Upload CFD terms, futures agreements, or client contracts. Scanned copies are not recommended.</p>
           </div>
-          <UploadForm />
+          <div className="max-w-4xl mx-auto space-y-6">
+            <TradingTemplateSelector 
+              onSelectTemplate={(template: TradingTemplate) => {
+                setSelectedTemplate(template);
+              }}
+            />
+            <UploadForm selectedTemplate={selectedTemplate} />
+          </div>
         </div>
       </main>
       <Footer />

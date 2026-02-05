@@ -16,7 +16,7 @@ const Documentation = () => {
           <div className="bg-white p-6 rounded-lg shadow-sm mb-8">
             <h2 className="text-2xl font-bold mb-4">Getting Started</h2>
             <p className="text-legal-muted mb-4">
-              Learn how to use Legal Insight AI to analyze your contracts and legal documents.
+              Learn how to use FinContract AI to analyze trading contracts, CFDs, and client agreements for risk and compliance.
             </p>
             <div className="space-y-4">
               <div className="border-l-4 border-legal-primary pl-4">
@@ -44,13 +44,13 @@ const Documentation = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h2 className="text-xl font-bold mb-4">API Documentation</h2>
               <p className="text-legal-muted">
-                Integrate Legal Insight AI's contract analysis capabilities into your own applications using our API.
+                Integrate FinContract AI's trading contract analysis and compliance capabilities into your own applications using our API.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h2 className="text-xl font-bold mb-4">User Guides</h2>
               <p className="text-legal-muted">
-                Detailed guides on how to use all features of Legal Insight AI, from basic analysis to advanced customization.
+                Detailed guides on how to use all features of FinContract AI, from risk scanning to jurisdiction-specific compliance.
               </p>
             </div>
           </div> */}

@@ -13,10 +13,10 @@ const FAQ = () => {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is Legal Insight AI?",
+        "name": "What is FinContract AI?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Legal Insight AI is an AI-powered contract analysis tool that helps you understand legal documents, identify potential risks, and suggest improvements to protect your interests."
+          "text": "FinContract AI is an AI-powered tool for trading and finance contract compliance. It helps you scan CFDs, futures, and client agreements for leverage risks, fraud-prone clauses, and regulatory gaps, and suggests compliant improvements."
         }
       },
       {
@@ -49,10 +49,10 @@ const FAQ = () => {
   return (
     <>
       <SEOHead
-        title="Legal Insight AI FAQ - Frequently Asked Questions"
-        description="Get answers to common questions about Legal Insight AI's contract analysis, document generation, legal advice, and AI-powered legal tools. Learn about features, pricing, and security."
-        keywords="legal AI FAQ, contract analysis questions, legal software help, AI legal tools FAQ, legal technology support, legal automation questions"
-        canonicalUrl="https://legalinsightai.software/faq"
+        title="FinContract AI FAQ - Frequently Asked Questions"
+        description="Get answers about FinContract AI's trading contract risk scanner, compliant agreements, regulatory chat, and compliance scoring. Features, pricing, and security."
+        keywords="FinContract AI FAQ, trading contract compliance, CFD risk analysis questions, finance contract AI"
+        canonicalUrl="https://fincontract.ai/faq"
         structuredData={structuredData}
       />
       <div className="flex flex-col min-h-screen">
@@ -64,10 +64,9 @@ const FAQ = () => {
           
           <div className="space-y-8">
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-3">What is Legal Insight AI?</h3>
-              <p className="text-legal-muted">
-                Legal Insight AI is an AI-powered contract analysis tool that helps you understand legal documents, 
-                identify potential risks, and suggest improvements to protect your interests.
+              <h3 className="text-xl font-bold mb-3">What is FinContract AI?</h3>
+              <p className="text-slate-600">
+                FinContract AI is an AI-powered tool for trading and finance contract compliance. It scans CFDs, futures, and client agreements for leverage risks, fraud-prone clauses, and regulatory gaps, and suggests compliant improvements—built for brokers and fintech like Deriv.
               </p>
             </div>
             

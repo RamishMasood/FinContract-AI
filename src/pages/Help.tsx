@@ -42,7 +42,7 @@ const Help = () => {
       formDataForWeb3.append("email", formData.email);
       formDataForWeb3.append("subject", `[${formData.category.toUpperCase()}] ${formData.subject}`);
       formDataForWeb3.append("message", `Category: ${formData.category}\n\nMessage:\n${formData.message}`);
-      formDataForWeb3.append("from_name", "Legal Insight AI");
+      formDataForWeb3.append("from_name", "FinContract AI");
       formDataForWeb3.append("to_email", "services@fastendtech.com");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -85,12 +85,12 @@ const Help = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Legal Insight AI Help Center",
-    "description": "Get support and answers for Legal Insight AI. Contact our support team for help with contract analysis, document generation, and AI legal tools.",
-    "url": "https://legalinsightai.software/help",
+    "name": "FinContract AI Help Center",
+    "description": "Get support for FinContract AI. Contact our team for help with trading contract compliance, risk scanning, and regulatory tools.",
+    "url": "https://fincontract.ai/help",
     "mainEntity": {
       "@type": "Organization",
-      "name": "Legal Insight AI Support",
+      "name": "FinContract AI Support",
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "services@fastendtech.com",
@@ -103,10 +103,10 @@ const Help = () => {
   return (
     <>
       <SEOHead
-        title="Legal Insight AI Help Center - Get Support & Contact Us"
-        description="Get help with Legal Insight AI's contract analysis and legal tools. Contact our support team for assistance with features, billing, and technical issues. Fast response guaranteed."
-        keywords="legal AI support, contract analysis help, legal software support, AI legal tools help, legal technology customer service, legal automation support"
-        canonicalUrl="https://legalinsightai.software/help"
+        title="FinContract AI Help Center - Get Support & Contact Us"
+        description="Get help with FinContract AI's trading contract compliance and risk tools. Contact support for features, billing, and technical issues."
+        keywords="FinContract AI support, trading contract compliance help, finance contract AI support"
+        canonicalUrl="https://fincontract.ai/help"
         structuredData={structuredData}
       />
       <div className="flex flex-col min-h-screen">

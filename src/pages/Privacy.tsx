@@ -77,7 +77,7 @@ const Privacy = () => {
             <div className="space-y-3">
               <h2 className="text-xl font-bold">8. Contact Us</h2>
               <p className="text-legal-muted">
-                If you have any questions about this privacy policy, please contact us at privacy@legalinsightai.com.
+                If you have any questions about this privacy policy, please contact us at privacy@fincontract.ai.
               </p>
             </div>
           </div>

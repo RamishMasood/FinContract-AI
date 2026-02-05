@@ -15,12 +15,12 @@ const Footer = () => {
               <span className="mr-2 select-none" style={{ display: 'inline-flex', alignItems: 'center' }}>
                 <HeroLogoSmall />
               </span>
-              <span className="gradient-text">Legal</span>
-              <span className="text-legal-text ml-1">Insight AI</span>
+              <span className="gradient-text">FinContract</span>
+              <span className="text-legal-text ml-1">AI</span>
             </div>
             {/* ...existing code... */}
             <p className="text-legal-muted max-w-md mx-auto md:mx-0">
-              Complete AI legal suite for contract analysis, document generation, legal advice, dispute handling, and jurisdiction guidance. Professional legal tools powered by artificial intelligence.
+              AI-powered risk intelligence for trading and finance contracts. Scan CFDs, futures, and client agreements for leverage risks, compliance gaps, and fraud-prone clauses—built for brokers and fintech.
             </p>
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 pt-2">
               <div className="flex items-center gap-1.5">
@@ -79,7 +79,7 @@ const Footer = () => {
               <Link to="/cookies" className="hover:text-legal-primary transition-colors">Cookie Policy</Link>
             </div>
             <div className="mt-2 md:mt-0 md:text-right w-full md:w-auto text-center md:text-right">
-              2025 Legal Insight AI. All rights reserved.
+              2025 FinContract AI. All rights reserved.
             </div>
             <div className="w-full md:w-auto flex flex-col items-center justify-center order-3 md:order-none mt-2 md:mt-0">
               <span className="block text-center flex items-center gap-2">

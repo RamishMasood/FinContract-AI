@@ -12,8 +12,8 @@ const LegalChat = () => {
         <div className="container mx-auto px-4">
           <PremiumFeatureGuard 
             feature="legalChat"
-            title="Legal Advice Chat"
-            description="Get instant legal guidance through our AI-powered chat interface"
+            title="Regulatory Risk Chat"
+            description="Ask compliance questions: e.g. 'Is this CFD clause compliant under Malta law?' or 'Does this meet CFTC requirements?'"
           >
             <LegalAdviceChatWidget />
           </PremiumFeatureGuard>

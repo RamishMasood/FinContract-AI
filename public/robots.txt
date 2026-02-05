@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://legalinsightai.software/sitemap.xml
+Sitemap: https://fincontract.ai/sitemap.xml
 
 # Crawl-delay for better server performance
 Crawl-delay: 1

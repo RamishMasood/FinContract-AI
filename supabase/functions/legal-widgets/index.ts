@@ -1,7 +1,8 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "npm:@supabase/supabase-js@2.95.0";
 
-// Setup: Use the Deepseek API key from Supabase secrets
+// FinContract AI: Use Deepseek API key from Supabase secrets
 const deepseekApiKey = Deno.env.get('DEEPSEEK_API_KEY');
 
 const corsHeaders = {
@@ -13,57 +14,107 @@ function safeJson(res: Response) {
   try { return res.json(); } catch { return Promise.resolve({ error: "Invalid JSON" }); }
 }
 
+// FinContract AI: Finance/trading-focused prompts for all widgets
 function widgetPrompt(type: string, payload: any) {
   switch (type) {
     case "dispute_email": {
-      // Compose a prompt instructing the AI to generate a polite payment follow-up email
       return {
-        system: "You are a helpful legal contract assistant who specializes in generating professional business emails.",
-        user: `Generate a polite and professional payment follow-up email based on these details:
+        system: "You are FinContract AI: a professional compliance and operations specialist for trading and finance contracts. You write clear, firm-but-professional emails for trading and finance disputes: payment follow-ups, margin call reminders, contract clause disputes, broker-client communications, CFD/futures account issues, and regulatory compliance matters. Always include a subject line at the top as 'Subject: ...'. Use [Recipient Name] and [Your Name] where not provided. Keep tone suitable for regulated finance (FCA, MiFID, CFTC, Malta MFSA, UAE SCA context). Focus on trading-specific language and compliance requirements.",
+        user: `Generate a professional dispute/payment follow-up email for a trading or finance context (CFD broker, futures trading, client agreement, margin call, or payment dispute).
+
 Recipient: ${payload.recipient}
-Recipient's Email: ${payload.emailTo}
-Invoice Details: ${payload.invoice}
-The tone should be firm yet courteous, and the subject line must be included at the top as 'Subject: ...'
-Do NOT invent recipient or sender names; use [Recipient Name] and [Your Name] where not provided.`
+Recipient Email: ${payload.emailTo}
+Dispute/Invoice Details: ${payload.invoice}
+
+Requirements: 
+- Include Subject line at top
+- Be clear and professional
+- Suitable for broker-client or B2B finance communications
+- Reference relevant trading/finance context (leverage, margin, compliance) if applicable
+- Maintain regulatory compliance tone`
       };
     }
     case "nda_agreement": {
-      // Compose a prompt that instructs the AI to generate both an NDA and a Work-for-hire Agreement
       return {
-        system: "You are a contract attorney able to write NDAs and work-for-hire agreements. Use clear Markdown formatting with proper headers (using # and ##), paragraphs, numbered lists (1. 2.) for clauses, and bold for key terms. Make all party references use placeholders like [Disclosing Party] and [Receiving Party] for easy replacement.",
-        user: `Given this context: "${payload.context}", generate:
-1. A simple NDA draft with header "# NON-DISCLOSURE AGREEMENT" including standard confidentiality clauses, term, scope, and remedies.
-2. A work-for-hire agreement with header "# WORK-FOR-HIRE AGREEMENT" including description of services, compensation terms, intellectual property rights, and delivery terms.
-Format each section with proper Markdown headings, numbered clauses, and use [Disclosing Party] and [Receiving Party] as placeholder names throughout.
-Add a brief disclaimer at the end that this document is for sample purposes and should not be considered legal advice.`
+        system: "You are FinContract AI: a contract attorney specializing in trading and financial services compliance. You draft NDAs, client agreements, broker agreements, and trading partner contracts suitable for fintech, brokers, CFD platforms, and trading platforms (e.g. Deriv-style). Use clear Markdown: headers (# and ##), numbered clauses, bold for key terms. Use placeholders [Disclosing Party] and [Receiving Party]. Include references to confidentiality of trading strategies, client data, proprietary algorithms, margin information, and regulatory considerations (MiFID, FCA, CFTC) where relevant. Add a short disclaimer that the document is for guidance and not legal advice.",
+        user: `Generate a compliant NDA and/or client/broker agreement for this trading/finance scenario: "${payload.context}"
+
+Parties: Disclosing Party = ${payload.disclosing_party}, Receiving Party = ${payload.receiving_party}.
+
+Produce:
+1. A NON-DISCLOSURE AGREEMENT section with confidentiality, term, scope, and remedies – suitable for trading partners, brokers, or service providers in the finance industry.
+2. A CLIENT/BROKER AGREEMENT or WORK-FOR-HIRE section if the context involves services – include description of services (trading platform access, CFD services, etc.), compensation, IP (trading algorithms, strategies), margin/leverage terms, and delivery terms.
+
+Use [Disclosing Party] and [Receiving Party] throughout. Format with Markdown headings and numbered clauses. Include trading/finance-specific protections.`
       };
     }
     case "legal_advice": {
-      // --- UPDATED SYSTEM PROMPT: Less strict, more helpful ---
       return {
-        system: "You are a legal expert who provides clear, practical, and informative guidance about law, contracts, and legal situations. Respond with useful explanations, examples, and tips relevant to the user's questions. Avoid giving specific legal advice for personal cases, and politely remind users to consult a qualified attorney for personal matters if needed, but your primary goal is to help users understand the law and their options in detail.",
-        user: `User question: "${payload.question}"`
+        system: "You are FinContract AI: a regulatory and compliance expert specializing in trading and finance contracts. You answer questions about: CFD and derivatives contracts, leverage and margin rules, margin calls, negative balance protection, broker unilateral powers, client suitability requirements, MiFID II, FCA, CFTC, Malta MFSA, UAE SCA, ESMA regulations, and other jurisdiction-specific trading regulations. Give clear, practical guidance focused on trading/finance compliance. Do not give personalized legal advice; recommend consulting a qualified lawyer for specific cases. Focus on compliance red flags, what to look for in trading agreements, and regulatory requirements for brokers and clients.",
+        user: `User question about trading/finance contract compliance: "${payload.question}"
+
+Provide a detailed answer focusing on:
+- Trading-specific regulations (CFDs, futures, leverage, margin)
+- Regulatory compliance (MiFID, FCA, CFTC, Malta MFSA, UAE SCA)
+- Risk management and fraud prevention
+- Broker-client agreement best practices
+- Jurisdiction-specific requirements if mentioned`
       };
     }
     case "jurisdiction_suggestion": {
-      // Compose a prompt requesting jurisdiction-based contract tips
       return {
-        system: "You are a contract lawyer who specializes in global differences in law and tax.",
-        user: `Give short, focused contract law and tax tips for business contracts in this country/region: "${payload.region}". Mention governing law, tax risks, and local customs. Respond in 3 sentences max.`
+        system: "You are FinContract AI: a compliance expert specializing in global trading and financial regulations. For the given country/region, provide: (1) Key regulators and frameworks (e.g. Malta MFSA, UK FCA, US CFTC, UAE SCA, EU MiFID II, ESMA). (2) Trading contract and CFD-specific rules (leverage limits, client categorization, suitability requirements, negative balance protection). (3) Suggested clauses or compliance steps for client agreements in that jurisdiction. (4) Brief tax or reporting considerations if relevant. (5) Fraud prevention and risk management requirements. Use clear Markdown. Be specific and actionable for trading platforms and brokers.",
+        user: `Provide jurisdiction-specific trading and compliance rules for: "${payload.region}". Requested detail level: ${payload.detailLevel || "detailed"}. 
+
+Include:
+- Regulator names and contact info
+- Key rules for trading/CFD contracts (leverage limits, client categories)
+- Required clauses for broker-client agreements
+- Compliance steps and best practices
+- Risk management and fraud prevention requirements`
+      };
+    }
+    case "proactive_alerts": {
+      return {
+        system: "You are FinContract AI: an expert in trading and finance contract compliance and risk detection. Analyze contract analysis data and generate proactive compliance alerts, risk warnings, and regulatory violation notices. Focus on: leverage and margin risks, regulatory compliance gaps (MiFID II, FCA, CFTC, Malta MFSA, UAE SCA), fraud-prone clauses, missing suitability checks, unilateral broker powers, and jurisdiction-specific requirements. Return valid JSON only.",
+        user: `Analyze this trading/finance contract analysis and generate proactive alerts:
+
+Contract Summary: ${payload.summary || "N/A"}
+Red Flags: ${JSON.stringify(payload.redFlags || [])}
+Missing Clauses: ${JSON.stringify(payload.missingClauses || [])}
+Jurisdiction: ${payload.jurisdiction || "malta"}
+
+Return EXACTLY this JSON structure (no markdown, no extra text):
+{
+  "alerts": [
+    {
+      "id": "unique-id",
+      "type": "error|warning|info",
+      "title": "Alert title (e.g. 'Compliance Issue' or 'Risk Warning')",
+      "message": "Specific, actionable message about the compliance issue or risk",
+      "regulation": "Regulation name if applicable (e.g. 'MiFID II', 'FCA', 'CFTC')"
+    }
+  ]
+}
+
+CRITICAL REQUIREMENTS:
+1. Generate 2-6 alerts based on actual issues found in the analysis
+2. Focus on trading/finance-specific risks (leverage, margin, regulatory compliance, fraud-prone terms)
+3. Use "error" for compliance violations, "warning" for risks, "info" for recommendations
+4. Include regulation names when relevant (MiFID II, FCA, CFTC, Malta MFSA, UAE SCA, ESMA)
+5. Make messages specific and actionable, not generic
+6. Return valid JSON only - no markdown formatting`
       };
     }
     default:
-      return { system: "You are a helpful assistant.", user: "Say hello." };
+      return { system: "You are FinContract AI: a helpful assistant for trading and finance contract compliance.", user: "Say hello." };
   }
 }
 
-// ---- NEW UTILITY for assembling DeepSeek-compatible message history ----
 function buildMessagesForDeepSeek({ chat, systemPrompt }: { chat: any[], systemPrompt: string }) {
-  // systemPrompt is used as the first message
   const messages: { role: "system"|"user"|"assistant", content: string }[] = [
     { role: "system", content: systemPrompt }
   ];
-  // Convert ChatMsg[] to OpenAI/DeepSeek messages
   for (const msg of chat ?? []) {
     if (!msg || typeof msg.content !== "string") continue;
     let role: "user" | "assistant" = msg.role === "ai" ? "assistant" : "user";
@@ -72,8 +123,7 @@ function buildMessagesForDeepSeek({ chat, systemPrompt }: { chat: any[], systemP
   return messages;
 }
 
-// The function that was missing!
-async function queryDeepSeek(system: string, user: string) {
+async function queryDeepSeek(system: string, user: string, type?: string) {
   if (!deepseekApiKey) {
     return { error: "DeepSeek API key missing in Supabase project secrets." };
   }
@@ -84,8 +134,8 @@ async function queryDeepSeek(system: string, user: string) {
   const body = {
     model: 'deepseek-chat',
     messages,
-    max_tokens: 700,
-    temperature: 0.27
+    max_tokens: type === 'proactive_alerts' ? 2000 : 1200,
+    temperature: type === 'proactive_alerts' ? 0.1 : 0.3
   };
   try {
     const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
@@ -114,8 +164,8 @@ async function queryDeepSeekWithFullChat(messages: any[]) {
   const body = {
     model: 'deepseek-chat',
     messages,
-    max_tokens: 700,
-    temperature: 0.27
+    max_tokens: 1200,
+    temperature: 0.3
   };
   const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
     method: 'POST',
@@ -141,26 +191,49 @@ serve(async (req: Request) => {
     const body = await req.json();
     const { type, ...payload } = body || {};
     if (!type) {
-      return new Response(JSON.stringify({ error: "Missing 'type'." }), { status: 400, headers: corsHeaders });
+      return new Response(JSON.stringify({ error: "Missing 'type'." }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
     if (type === "legal_advice" && payload.chat) {
-      // --- Use the UPDATED system prompt here as well ---
-      const systemPrompt = "You are a legal expert who provides clear, practical, and informative guidance about law, contracts, and legal situations. Respond with useful explanations, examples, and tips relevant to the user's questions. Avoid giving specific legal advice for personal cases, and politely remind users to consult a qualified attorney for personal matters if needed, but your primary goal is to help users understand the law and their options in detail.";
+      const systemPrompt = "You are FinContract AI: a regulatory and compliance expert specializing in trading and finance contracts. You answer questions about: CFD and derivatives contracts, leverage and margin rules, margin calls, negative balance protection, broker unilateral powers, client suitability requirements, MiFID II, FCA, CFTC, Malta MFSA, UAE SCA, ESMA regulations, and other jurisdiction-specific trading regulations. Give clear, practical guidance focused on trading/finance compliance. Do not give personalized legal advice; recommend consulting a qualified lawyer for specific cases. Focus on compliance red flags, what to look for in trading agreements, and regulatory requirements for brokers and clients.";
       const messages = buildMessagesForDeepSeek({ chat: payload.chat, systemPrompt });
       const resp = await queryDeepSeekWithFullChat(messages);
       return new Response(JSON.stringify(resp), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    // Fallback: legacy payload, non-chat context (what most widgets use!)
+    if (type === "proactive_alerts") {
+      const prompt = widgetPrompt(type, payload);
+      const resp = await queryDeepSeek(prompt.system, prompt.user, type);
+      
+      // Parse JSON response for proactive_alerts
+      if (resp.result && !resp.error) {
+        try {
+          let cleanResponse = resp.result;
+          cleanResponse = cleanResponse.replace(/```json\s*/, '').replace(/```\s*$/, '');
+          cleanResponse = cleanResponse.replace(/```\s*/, '');
+          const jsonMatch = cleanResponse.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            cleanResponse = jsonMatch[0];
+          }
+          const parsed = JSON.parse(cleanResponse);
+          return new Response(JSON.stringify({ result: parsed }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        } catch (parseError) {
+          console.error('Failed to parse proactive_alerts JSON:', parseError);
+          return new Response(JSON.stringify({ error: "Failed to parse AI response" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        }
+      }
+      
+      return new Response(JSON.stringify(resp), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
     const prompt = widgetPrompt(type, payload);
-    const resp = await queryDeepSeek(prompt.system, prompt.user);
+    const resp = await queryDeepSeek(prompt.system, prompt.user, type);
 
     return new Response(JSON.stringify(resp), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err?.message || "Unknown error" }), {
       status: 500,
-      headers: corsHeaders
+      headers: { ...corsHeaders, "Content-Type": "application/json" }
     });
   }
 });

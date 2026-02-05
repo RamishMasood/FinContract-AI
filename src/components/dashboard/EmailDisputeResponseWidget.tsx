@@ -178,38 +178,38 @@ export default function EmailDisputeResponseWidget() {
 
   return (
     <section className="bg-white rounded-lg shadow-sm border p-5 my-4">
-      <h3 className="text-lg font-bold flex items-center gap-2 mb-2">
-        <Mail className="h-5 w-5" /> Email-Based Dispute Response
+      <h3 className="text-lg font-bold flex items-center gap-2 mb-2 text-slate-900">
+        <Mail className="h-5 w-5 text-blue-600" /> Dispute Response
       </h3>
-      <p className="text-sm text-legal-muted mb-3">
-        Enter the info of your pending invoice, generate a ready-to-send polite payment request email.
+      <p className="text-sm text-slate-600 mb-3">
+        For trading contract or payment disputes: enter recipient and dispute details to generate a professional, compliant follow-up email.
       </p>
       {/* Recipient and EmailTo remain as inputs side-by-side on desktop */}
       <div className="grid sm:grid-cols-2 gap-3 mb-2">
         <div>
-          <Input value={recipient} onChange={e => setRecipient(e.target.value)} placeholder="Recipient Name" />
+          <Input value={recipient} onChange={e => setRecipient(e.target.value)} placeholder="Recipient or broker name" />
         </div>
         <div>
-          <Input value={emailTo} onChange={e => setEmailTo(e.target.value)} placeholder="Recipient Email" type="email" />
+          <Input value={emailTo} onChange={e => setEmailTo(e.target.value)} placeholder="Recipient email" type="email" />
         </div>
       </div>
       {/* Invoice Details gets its own full-width line as extendable textarea */}
       <div className="mb-2">
         <label htmlFor="invoice-details" className="text-sm font-medium text-gray-700 block mb-1">
-          Invoice Details
+          Dispute details (invoice, contract ref, or issue description)
         </label>
         <Textarea
           id="invoice-details"
           value={invoice}
           onChange={e => setInvoice(e.target.value)}
-          placeholder="Invoice Details"
+          placeholder="e.g. Outstanding margin call, invoice #INV-2024-001, or trading contract clause in dispute"
           rows={3}
           className="w-full resize-y"
           autoFocus={false}
         />
       </div>
       <Button size="sm" className="mt-2 mb-3" disabled={loading || saving} onClick={handleGenerate}>
-        {loading ? "Generating Email..." : saving ? "Saving Draft..." : "Generate Email"}
+        {loading ? "Generating..." : saving ? "Saving..." : "Generate Dispute Response"}
       </Button>
       {draft && (
         <div className="mt-3">

@@ -380,11 +380,11 @@ export default function AgreementGeneratorWidget() {
   const isSaveLocked = planId === "free";
   const isHistoryLocked = planId === "free";
   return <section className="bg-white rounded-lg shadow-sm border p-5 my-4">
-      <h3 className="text-lg font-bold flex items-center gap-2 mb-2">
-        <FileText className="h-5 w-5" /> Auto NDA & Agreement Generator
+      <h3 className="text-lg font-bold flex items-center gap-2 mb-2 text-slate-900">
+        <FileText className="h-5 w-5 text-blue-600" /> Compliant Agreement Generator
       </h3>
-      <p className="text-sm text-legal-muted mb-3">
-        Enter what the agreement is for (e.g., "freelance logo design") and party names to get ready NDA + contract draft.
+      <p className="text-sm text-slate-600 mb-3">
+        Generate compliant NDAs or client trading agreements. Enter scenario (e.g. "CFD client onboarding", "trading partner NDA") and party names.
       </p>
 
       {/* Plan limitations notice */}
@@ -394,18 +394,18 @@ export default function AgreementGeneratorWidget() {
 
       {/* Context textarea full width */}
       <div className="mb-2">
-        <Textarea className="mb-2 resize-y min-h-[65px] text-base" value={context} onChange={e => setContext(e.target.value)} placeholder='Describe your agreement need (e.g., "Hiring a designer")' disabled={loading || saving || isGenerateLocked} rows={3} />
+        <Textarea className="mb-2 resize-y min-h-[65px] text-base" value={context} onChange={e => setContext(e.target.value)} placeholder='e.g. "Client trading agreement for CFDs", "NDA with liquidity provider"' disabled={loading || saving || isGenerateLocked} rows={3} />
       </div>
       {/* Party name inputs, responsive row */}
       <div className="flex flex-col gap-2 sm:flex-row sm:gap-4 mb-2">
-        <Input className="flex-1 mb-1" value={disclosing} onChange={e => setDisclosing(e.target.value)} placeholder="Disclosing Party (e.g., Client)" disabled={loading || saving || isGenerateLocked} />
-        <Input className="flex-1 mb-1" value={receiving} onChange={e => setReceiving(e.target.value)} placeholder="Receiving Party (e.g., Freelancer)" disabled={loading || saving || isGenerateLocked} />
+        <Input className="flex-1 mb-1" value={disclosing} onChange={e => setDisclosing(e.target.value)} placeholder="Disclosing party (e.g. Broker / Your firm)" disabled={loading || saving || isGenerateLocked} />
+        <Input className="flex-1 mb-1" value={receiving} onChange={e => setReceiving(e.target.value)} placeholder="Receiving party (e.g. Client / Counterparty)" disabled={loading || saving || isGenerateLocked} />
       </div>
       <Button size="sm" className="mb-3" disabled={loading || saving || isGenerateLocked} onClick={handleGenerate}>
         {loading ? <>
             <Loader2 className="animate-spin h-4 w-4 mr-2" />
             Generating...
-          </> : <>Generate NDA + Agreement</>}
+          </> : <>Generate Compliant Agreement</>}
       </Button>
       {draft && <div className="border border-gray-100 rounded p-2 mb-3 bg-gray-50">
           <div className="mb-2 p-3 border rounded bg-white">

@@ -33,14 +33,14 @@ export default function HeroLogo() {
           width="38"
           height="38"
           rx="6"
-          fill="#fcfaff"
-          stroke="#b96fdb"
+          fill="#f0f9ff"
+          stroke="#1e3a5f"
           strokeWidth="2.4"
         />
         {/* Writing lines */}
-        <rect x="13" y="18" width="20" height="2.5" rx="1.2" fill="#bd44bd" opacity="0.32" />
-        <rect x="13" y="25" width="24" height="2.5" rx="1.2" fill="#bd44bd" opacity="0.22" />
-        <rect x="13" y="32" width="12" height="2.5" rx="1.2" fill="#bd44bd" opacity="0.17" />
+        <rect x="13" y="18" width="20" height="2.5" rx="1.2" fill="#2563eb" opacity="0.32" />
+        <rect x="13" y="25" width="24" height="2.5" rx="1.2" fill="#2563eb" opacity="0.22" />
+        <rect x="13" y="32" width="12" height="2.5" rx="1.2" fill="#059669" opacity="0.25" />
         {/* SCAN LINE: animated gradient sweep down */}
         <AnimatedScan />
       </svg>
@@ -49,7 +49,7 @@ export default function HeroLogo() {
         className="absolute left-[65%] top-[21%] -translate-x-1/2 -translate-y-1/2"
         style={{
           zIndex: 3,
-          filter: "drop-shadow(0px 0px 10px #b96fdb88)",
+          filter: "drop-shadow(0px 0px 10px #1e3a5f66)",
           animation: "pulse 2s infinite"
         }}
       >
@@ -57,7 +57,7 @@ export default function HeroLogo() {
           className="h-7 w-7"
           strokeWidth={2.2}
           style={{
-            color: "#b96fdb",
+            color: "#1e3a5f",
             transition: "transform 0.14s",
             animation: "pulse-brain 2.1s infinite"
           }}
@@ -73,10 +73,10 @@ export default function HeroLogo() {
         style={{ zIndex: 5 }}
       >
         <svg width="21" height="21" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="8" fill="#eafcf3" />
+          <circle cx="8" cy="8" r="8" fill="#ecfdf5" />
           <path
             d="M5 8.5l2 2 4-4"
-            stroke="#21c980"
+            stroke="#059669"
             strokeWidth="2.1"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -125,9 +125,9 @@ function AnimatedScan() {
       {/* SVG gradient definition for blue-purple glow */}
       <defs>
         <linearGradient id="scan-gradient" x1="0" y1="0" x2="56" y2="0" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#c8d7fa" />
-          <stop offset="0.50" stopColor="#b96fdb" />
-          <stop offset="0.99" stopColor="#6e59a5" />
+          <stop stopColor="#93c5fd" />
+          <stop offset="0.50" stopColor="#2563eb" />
+          <stop offset="0.99" stopColor="#059669" />
         </linearGradient>
       </defs>
     </g>

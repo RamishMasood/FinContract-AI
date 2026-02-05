@@ -12,8 +12,8 @@ const JurisdictionSuggestion = () => {
         <div className="container mx-auto px-4">
           <PremiumFeatureGuard 
             feature="jurisdictionSuggestions"
-            title="Jurisdiction-Based Suggestions"
-            description="Get region-specific legal advice and clause recommendations"
+            title="Jurisdiction-Specific Rules"
+            description="Get MiFID II, FCA, CFTC, UAE SCA, Malta MFSA rules and clause recommendations for trading contracts"
           >
             <JurisdictionSuggestionWidget />
           </PremiumFeatureGuard>

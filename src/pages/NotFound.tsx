@@ -17,7 +17,7 @@ const NotFound = () => {
       <SEOHead
         title="404 - Page Not Found"
         description="The page you are looking for cannot be found."
-        canonicalUrl="https://legalinsightai.software/404"
+        canonicalUrl="https://fincontract.ai/404"
         noIndex={true}
       />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,26 +23,45 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import fileTextExtractor from "@/services/fileTextExtractor";
+import { TradingTemplate } from "@/constants/tradingTemplates";
+import { redactPII } from "@/utils/dataRedaction";
 
 const uploadFormSchema = z.object({
   documentName: z.string().min(3, "Document name must be at least 3 characters"),
 });
 
-const UploadForm = () => {
+interface UploadFormProps {
+  selectedTemplate?: TradingTemplate | null;
+}
+
+const UploadForm = ({ selectedTemplate }: UploadFormProps = {}) => {
   const [activeTab, setActiveTab] = useState("upload");
   const [file, setFile] = useState<File | null>(null);
-  const [contractText, setContractText] = useState("");
+  const [contractText, setContractText] = useState(selectedTemplate?.sampleText || "");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [fileType, setFileType] = useState<"pdf" | "docx" | "other">("pdf");
   const [dragActive, setDragActive] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [redactData, setRedactData] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
   
   const { analyzeContract, isAnalyzing } = useContractAnalysis();
+  
+  // Update text when template changes
+  React.useEffect(() => {
+    if (selectedTemplate?.sampleText) {
+      setContractText(selectedTemplate.sampleText);
+      setActiveTab("paste");
+      toast({
+        title: "Template loaded",
+        description: `${selectedTemplate.name} template is ready for analysis.`,
+      });
+    }
+  }, [selectedTemplate, toast]);
 
   const form = useForm<z.infer<typeof uploadFormSchema>>({
     resolver: zodResolver(uploadFormSchema),
@@ -296,6 +315,7 @@ const UploadForm = () => {
                   className="hidden"
                   onChange={handleFileChange}
                   ref={fileInputRef}
+                  aria-label="Upload PDF or DOCX trading contract"
                 />
                 
                 {file ? (
@@ -345,13 +365,19 @@ const UploadForm = () => {
             
             <TabsContent value="paste" className="mt-4">
               <div className="grid gap-2">
-                <Label htmlFor="contract">Contract Text:</Label>
+                <Label htmlFor="contract">Trading Contract Text:</Label>
                 <Textarea
                   id="contract"
-                  placeholder="Paste your contract text here..."
+                  placeholder="Paste your CFD terms, futures agreement, or client contract here..."
                   className="min-h-[200px]"
+                  value={contractText}
                   onChange={handlePasteText}
                 />
+                {selectedTemplate && (
+                  <p className="text-xs text-blue-600 mt-1">
+                    ✓ Using template: {selectedTemplate.name}
+                  </p>
+                )}
               </div>
             </TabsContent>
           </Tabs>
@@ -381,7 +407,7 @@ const UploadForm = () => {
           
           <Button 
             type="submit" 
-            className="bg-legal-primary hover:bg-legal-primary/90 w-full"
+            className="bg-gradient-to-r from-[#1e3a5f] to-[#059669] hover:opacity-90 w-full"
             disabled={uploading || isAnalyzing || (file && fileType === "other")}
           >
             {uploading || isAnalyzing ? (
@@ -391,7 +417,7 @@ const UploadForm = () => {
             ) : (
               <>
                 <FileText className="h-4 w-4 mr-2" />
-                <span>Analyze Contract</span>
+                <span>Scan Trading Contract</span>
               </>
             )}
           </Button>

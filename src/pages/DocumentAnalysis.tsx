@@ -65,25 +65,25 @@ const DocumentAnalysis = () => {
           <div className="mb-6">
             <Link 
               to="/dashboard" 
-              className="inline-flex items-center text-legal-muted hover:text-legal-text transition-colors"
+              className="inline-flex items-center text-slate-600 hover:text-slate-900 transition-colors"
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               <span>Back to Dashboard</span>
             </Link>
             
-            <h1 className="text-2xl font-bold mt-3">
-              {isLoading ? "Loading analysis..." : document?.title || "Document Analysis"}
+            <h1 className="text-2xl font-bold mt-3 text-slate-900">
+              {isLoading ? "Analyzing trading contract..." : document?.title || "Trading Contract Analysis"}
             </h1>
             
             {document?.status === 'analyzing' && (
-              <div className="mt-2 text-legal-muted">
+              <div className="mt-2 text-slate-600">
                 <span className="inline-block h-2 w-2 rounded-full bg-amber-500 mr-2 animate-pulse"></span>
-                Analysis in progress...
+                Scanning for leverage risks, compliance gaps, and fraud-prone clauses...
               </div>
             )}
             
             {document?.status === 'failed' && (
-              <div className="mt-2 text-legal-danger">
+              <div className="mt-2 text-red-600">
                 <span className="inline-block h-2 w-2 rounded-full bg-red-500 mr-2"></span>
                 Analysis failed - please try again
               </div>

@@ -17,7 +17,7 @@ export const authService = {
     referralEmail?: string;
   }): Promise<AuthResponse> {
     try {
-      const redirectUrl = `https://legalinsightai.software/`;
+      const redirectUrl = `https://fincontract.ai/`;
       
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -118,7 +118,7 @@ export const authService = {
 
   async resetPassword(email: string): Promise<AuthResponse> {
     try {
-      const redirectUrl = `https://legalinsightai.software/auth?mode=reset`;
+      const redirectUrl = `https://fincontract.ai/auth?mode=reset`;
       
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectUrl,

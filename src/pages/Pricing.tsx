@@ -38,27 +38,34 @@ const Pricing = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Legal Insight AI Pricing - AI Legal Suite Plans",
-    "description": "Choose the perfect plan for your legal document needs. Free trial available with premium features for contract analysis, document generation, legal advice, and more.",
-    "url": "https://legalinsightai.software/pricing",
+    "name": "FinContract AI Pricing - Trading & Finance Compliance Plans",
+    "description": "Choose the right plan for trading contract compliance. Free trial, then Basic or Premium for full risk scanning, compliant agreements, and regulatory chat.",
+    "url": "https://fincontract.ai/pricing",
     "mainEntity": {
       "@type": "Product",
-      "name": "Legal Insight AI Suite",
-      "description": "Complete AI legal suite for contract analysis and document generation",
+      "name": "FinContract AI",
+      "description": "AI for trading and finance contract compliance, risk detection, regulatory checks, and jurisdiction-specific rules",
       "offers": [
         {
           "@type": "Offer",
           "name": "Free Trial",
           "price": "0",
           "priceCurrency": "USD",
-          "description": "One free contract analysis"
+          "description": "One free trading contract analysis with risk detection"
         },
         {
-          "@type": "Offer", 
-          "name": "Monthly Subscription",
-          "price": "29",
+          "@type": "Offer",
+          "name": "Basic",
+          "price": "9.99",
           "priceCurrency": "USD",
-          "description": "Full access to all AI legal tools"
+          "description": "10 analyses/month, improvements, comparison, clause explanations"
+        },
+        {
+          "@type": "Offer",
+          "name": "Premium",
+          "price": "29.99",
+          "priceCurrency": "USD",
+          "description": "Unlimited analyses and full FinContract AI: agreements, regulatory chat, dispute response, jurisdiction rules"
         }
       ]
     }
@@ -67,10 +74,10 @@ const Pricing = () => {
   return (
     <>
       <SEOHead
-        title="Pricing Plans - Legal Insight AI Legal Suite"
-        description="Affordable pricing for our complete AI legal suite. Start with a free trial, then choose from our flexible plans for contract analysis, document generation, legal advice, and more."
-        keywords="legal AI pricing, contract analysis cost, AI legal tools pricing, legal software subscription, legal automation pricing, affordable legal AI, legal tech pricing plans"
-        canonicalUrl="https://legalinsightai.software/pricing"
+        title="Pricing Plans - FinContract AI | Trading Contract Compliance"
+        description="Affordable pricing for trading contract compliance. Start free, then upgrade for full risk scanner, compliant agreements, and regulatory chat."
+        keywords="FinContract AI pricing, trading contract compliance cost, finance contract AI plans"
+        canonicalUrl="https://fincontract.ai/pricing"
         structuredData={structuredData}
         additionalMeta={[
           { name: "robots", content: "index,follow,noarchive" }

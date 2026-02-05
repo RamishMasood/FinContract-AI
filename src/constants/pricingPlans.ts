@@ -1,4 +1,3 @@
-
 export type Plan = {
   id: string;
   name: string;
@@ -15,20 +14,20 @@ export const PLANS: Plan[] = [
     id: "free",
     name: "Free Trial",
     price: "$0",
-    description: "Try contract analysis for free.",
+    description: "Try trading contract risk analysis for free.",
     features: [
-      "1 contract analysis",
-      "Red flag detection",
+      "1 trading contract analysis",
+      "Risk & red flag detection (leverage, compliance)",
       "Download summary report"
     ],
     notIncluded: [
       "Improvement suggestions",
       "Side-by-side comparison",
       "Advanced clause explanations",
-      "Auto NDA & Agreement Generator",
-      "Legal Advice Chat",
-      "Email Dispute Response",
-      "Jurisdiction-Based Suggestions",
+      "Compliant Agreement Generator",
+      "Regulatory Risk Chat",
+      "Dispute Response",
+      "Jurisdiction-Specific Rules",
       "Downloadable improvements"
     ],
     documentCount: 1,
@@ -37,10 +36,10 @@ export const PLANS: Plan[] = [
     id: "basic",
     name: "Basic",
     price: "$9.99",
-    description: "Perfect for regular contract reviews.",
+    description: "For teams reviewing trading & finance contracts regularly.",
     features: [
       "10 contract analyses per month",
-      "Red flag detection",
+      "Risk & red flag detection",
       "Improvement suggestions",
       "Side-by-side comparison",
       "Advanced clause explanations",
@@ -48,10 +47,10 @@ export const PLANS: Plan[] = [
       "Download summary report"
     ],
     notIncluded: [
-      "Auto NDA & Agreement Generator",
-      "Legal Advice Chat", 
-      "Email Dispute Response",
-      "Jurisdiction-Based Suggestions"
+      "Compliant Agreement Generator",
+      "Regulatory Risk Chat",
+      "Dispute Response",
+      "Jurisdiction-Specific Rules"
     ],
     documentCount: 10,
   },
@@ -59,19 +58,19 @@ export const PLANS: Plan[] = [
     id: "premium",
     name: "Premium",
     price: "$29.99",
-    description: "Complete AI legal suite access.",
+    description: "Full FinContract AI: compliance, risk, and regulatory tools.",
     features: [
       "Unlimited contract analysis",
-      "Red flag detection",
+      "Risk & red flag detection",
       "Improvement suggestions",
       "Side-by-side comparison",
       "Advanced clause explanations",
       "Downloadable improvements",
       "Download summary report",
-      "Auto NDA & Agreement Generator",
-      "Legal Advice Chat",
-      "Email Dispute Response",
-      "Jurisdiction-Based Suggestions"
+      "Compliant Agreement Generator",
+      "Regulatory Risk Chat",
+      "Dispute Response",
+      "Jurisdiction-Specific Rules"
     ],
     highlight: true,
     documentCount: "unlimited",
