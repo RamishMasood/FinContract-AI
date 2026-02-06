@@ -211,12 +211,13 @@ async function queryDeepSeek(system: string, user: string, type?: string) {
     { role: "system", content: system },
     { role: "user", content: user }
   ];
+  // Increase generation length across all tools (roughly triple previous defaults)
   const maxTokens =
     type === "proactive_alerts"
-      ? 2000
+      ? 6000
       : type === "nda_agreement"
-      ? 3500
-      : 1200;
+      ? 6000
+      : 3600;
   const temperature = type === "proactive_alerts" ? 0.1 : 0.3;
 
   const body = {
@@ -252,7 +253,8 @@ async function queryDeepSeekWithFullChat(messages: any[]) {
   const body = {
     model: 'deepseek-chat',
     messages,
-    max_tokens: 1200,
+    // Allow longer multi-turn conversations as well
+    max_tokens: 3600,
     temperature: 0.3
   };
   const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
