@@ -88,7 +88,7 @@ const Index = () => {
             <HeroLogo />
           </div>
 
-          {/* Headline  */}
+          {/* Headline */}
           <h1 className="font-extrabold text-xl xs:text-2xl sm:text-[2.4rem] md:text-[3.6rem] leading-[1.07] max-w-4xl mx-auto mb-2 sm:mb-3 text-slate-900">
          
             <span className="block md:inline font-extrabold bg-gradient-to-r from-[#1e3a5f] via-[#2563eb] to-[#059669] text-transparent bg-clip-text">
