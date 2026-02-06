@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
@@ -117,21 +117,16 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
   const { originalPlanId, isPlanExpired, hasPaidPlans } = usePlanUsage();
   const { clauseExplanations: hasClauseExplanationsAccess } = usePlanFeatureAccess();
 
+  const hasLoggedAnalysis = useRef(false);
   useEffect(() => {
-    if (analysis && documentId) {
-      console.log("Analysis data loaded:", {
-        redFlagsCount: analysis.redFlags?.length || 0,
-        suggestedEditsCount: analysis.suggestedEdits?.length || 0,
-        missingClausesCount: analysis.missingClauses?.length || 0,
-        clauseExplanationsCount: analysis.clauseExplanations?.length || 0
-      });
-      
-      // Log analysis to audit trail
+    if (analysis && documentId && !hasLoggedAnalysis.current) {
+      hasLoggedAnalysis.current = true;
       addAuditLog({
         action: 'analysis',
+        documentId: documentId || undefined,
         documentName: documentData?.title || 'Unknown',
         details: `Analysis completed: ${analysis.redFlags?.length || 0} red flags, ${analysis.suggestedEdits?.length || 0} suggestions`,
-        userId: 'current-user' // In real app, get from auth context
+        userId: 'current-user'
       });
     }
   }, [analysis, documentId, documentData]);
@@ -582,6 +577,7 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
               });
               addAuditLog({
                 action: 'export',
+                documentId: documentId || undefined,
                 documentName: documentData?.title || 'Unknown',
                 details: 'Exported analysis to Word format',
                 userId: 'current-user'

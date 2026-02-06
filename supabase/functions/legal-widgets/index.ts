@@ -159,6 +159,33 @@ Assess: Is this contract affected by the regulatory update? Return EXACTLY this 
 Return valid JSON only - no markdown.`
       };
     }
+    case "predictive_suggestions": {
+      return {
+        system: "You are FinContract AI: an expert in trading and finance contract compliance. Given contract analysis data, generate AI-powered predictive suggestions. Base suggestions on: red flags, missing clauses, risk scores, and similar trading contracts. Include quantitative impact estimates where possible (e.g. 'reduce risk by 30%', 'reduce disputes by 45%'). Return valid JSON only.",
+        user: `Based on this trading/finance contract analysis, generate 3-6 AI predictive suggestions:
+
+Contract Summary: ${payload.summary || "N/A"}
+Red Flags: ${JSON.stringify(payload.redFlags || [])}
+Missing Clauses: ${JSON.stringify(payload.missingClauses || [])}
+Risk Score Sections: ${JSON.stringify(payload.riskScoreSections || [])}
+Suggested Edits: ${JSON.stringify((payload.suggestedEdits || []).slice(0, 5))}
+
+Return EXACTLY this JSON structure (no markdown, no extra text):
+{
+  "suggestions": [
+    {
+      "id": "unique-id",
+      "category": "client-protection|broker-powers|compliance|risk-management|regulatory|liability",
+      "suggestion": "Specific actionable recommendation based on this contract (e.g. 'Based on similar CFDs, adding negative balance protection clause can reduce risk by 30%')",
+      "impact": "high|medium|low",
+      "rationale": "Brief reason based on analysis"
+    }
+  ]
+}
+
+CRITICAL: Generate 3-6 suggestions based on actual contract issues. Be specific with impact estimates. Return valid JSON only.`
+      };
+    }
     default:
       return { system: "You are FinContract AI: a helpful assistant for trading and finance contract compliance.", user: "Say hello." };
   }
@@ -279,7 +306,7 @@ serve(async (req: Request) => {
       return new Response(JSON.stringify(resp), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    if (type === "monitoring_rules" || type === "regulatory_impact") {
+    if (type === "monitoring_rules" || type === "regulatory_impact" || type === "predictive_suggestions") {
       const prompt = widgetPrompt(type, payload);
       const resp = await queryDeepSeek(prompt.system, prompt.user, type);
       if (resp.result && !resp.error) {

@@ -8,6 +8,7 @@ interface AuditLogEntry {
   id: string;
   timestamp: Date;
   action: 'upload' | 'analysis' | 'suggestion' | 'export' | 'compliance-check';
+  documentId?: string;
   documentName?: string;
   details: string;
   userId: string;
@@ -21,12 +22,11 @@ const AuditLog = ({ documentId }: AuditLogProps) => {
   const [logs, setLogs] = useState<AuditLogEntry[]>([]);
 
   useEffect(() => {
-    // Load from localStorage (in real app, fetch from API)
     const storedLogs = localStorage.getItem('fincontract_audit_logs');
     if (storedLogs) {
       const parsed = JSON.parse(storedLogs);
       const filtered = documentId 
-        ? parsed.filter((log: AuditLogEntry) => log.documentName?.includes(documentId))
+        ? parsed.filter((log: AuditLogEntry) => log.documentId === documentId)
         : parsed;
       setLogs(filtered.slice(-20).reverse()); // Last 20 entries, newest first
     }
@@ -107,7 +107,7 @@ const AuditLog = ({ documentId }: AuditLogProps) => {
 };
 
 // Helper function to add audit log entry
-export const addAuditLog = (entry: Omit<AuditLogEntry, 'id' | 'timestamp'>) => {
+export const addAuditLog = (entry: Omit<AuditLogEntry, 'id' | 'timestamp'> & { documentId?: string }) => {
   const logs = JSON.parse(localStorage.getItem('fincontract_audit_logs') || '[]');
   const newEntry: AuditLogEntry = {
     ...entry,

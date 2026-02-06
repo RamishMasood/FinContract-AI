@@ -222,7 +222,7 @@ const Dashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {[1, 2, 3, 4, 5, 6].map(item => <div key={item} className="h-64 bg-gray-200 rounded-lg"></div>)}
               </div>
-            </div> : documents && documents.length > 0 ? <div className="space-y-4 sm:space-y-6">
+            </div> : documents && documents.length > 0 ? <div className="space-y-4 sm:space-y-6" id="contracts-section">
               <div className="mx-12 bg-white p-2 xs:p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100">
                 {/* Responsive filters and actions bar */}
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">

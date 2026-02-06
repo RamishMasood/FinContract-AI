@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import fileTextExtractor from "@/services/fileTextExtractor";
 import { TradingTemplate } from "@/constants/tradingTemplates";
+import { addAuditLog } from "@/components/dashboard/AuditLog";
 import { redactPII } from "@/utils/dataRedaction";
 
 const uploadFormSchema = z.object({
@@ -229,7 +230,17 @@ const UploadForm = ({ selectedTemplate }: UploadFormProps = {}) => {
           title: "Analysis complete",
           description: "Your contract has been analyzed successfully.",
         });
-        
+
+        if (response.documentId) {
+          addAuditLog({
+            action: "upload",
+            documentId: response.documentId,
+            documentName: values.documentName || "Contract",
+            details: "Document uploaded and analyzed",
+            userId: "current-user",
+          });
+        }
+
         // Navigate directly to document analysis after completion
         setTimeout(() => {
           if (response.documentId) {

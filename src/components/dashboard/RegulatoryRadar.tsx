@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ interface ImpactResult {
 }
 
 const RegulatoryRadar = ({ documents = [] }: { documents?: DocumentSummary[] }) => {
+  const navigate = useNavigate();
   const [jurisdiction, setJurisdiction] = useState("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [impactMap, setImpactMap] = useState<Record<string, Record<string, ImpactResult>>>({});
@@ -180,7 +182,10 @@ const RegulatoryRadar = ({ documents = [] }: { documents?: DocumentSummary[] }) 
                                         size="sm"
                                         variant="ghost"
                                         className="text-xs"
-                                        onClick={() => setExpandedId(update.id)}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          navigate(`/dashboard/document/${doc.id}`);
+                                        }}
                                       >
                                         Details
                                       </Button>

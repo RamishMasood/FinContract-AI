@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, RefreshCw } from "lucide-react";
@@ -18,6 +18,8 @@ interface StaleAnalysisAlertProps {
 }
 
 const StaleAnalysisAlert = ({ documents }: StaleAnalysisAlertProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const now = new Date();
   const staleDocs = (documents || []).filter((d) => {
     if (d.status !== "analyzed") return false;
@@ -27,6 +29,17 @@ const StaleAnalysisAlert = ({ documents }: StaleAnalysisAlertProps) => {
   });
 
   if (staleDocs.length === 0) return null;
+
+  const handleViewContracts = () => {
+    if (location.pathname === "/dashboard") {
+      const el = document.getElementById("contracts-section");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      navigate("/dashboard#contracts");
+    }
+  };
 
   return (
     <Card className="border-amber-200 bg-amber-50">
@@ -43,12 +56,16 @@ const StaleAnalysisAlert = ({ documents }: StaleAnalysisAlertProps) => {
               </p>
             </div>
           </div>
-          <Link to="/dashboard">
-            <Button variant="outline" size="sm" className="border-amber-300 text-amber-800 hover:bg-amber-100">
-              <RefreshCw className="h-4 w-4 mr-1" />
-              View Contracts
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="border-amber-300 text-amber-800 hover:bg-amber-100"
+            onClick={handleViewContracts}
+          >
+            <RefreshCw className="h-4 w-4 mr-1" />
+            View Contracts
+          </Button>
         </div>
       </CardContent>
     </Card>

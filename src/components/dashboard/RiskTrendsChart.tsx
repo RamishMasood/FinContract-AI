@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -24,20 +24,32 @@ interface RiskTrendsChartProps {
 }
 
 const RiskTrendsChart = ({ documents }: RiskTrendsChartProps) => {
+  // Sort documents chronologically
   const sortedDocs = [...documents].sort(
     (a, b) => new Date(a.analyzedAt).getTime() - new Date(b.analyzedAt).getTime()
   );
 
-  const chartData = sortedDocs.map((d) => ({
-    name: d.title.length > 20 ? d.title.slice(0, 20) + "…" : d.title,
-    fullName: d.title,
-    score: d.riskScore,
-    date: new Date(d.analyzedAt).toLocaleDateString("en-US", {
+  const chartData = sortedDocs.map((d) => {
+    const dateObj = new Date(d.analyzedAt);
+    const dateLabel = dateObj.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
-      year: "2-digit",
-    }),
-  }));
+    });
+    const dateTimeLabel = dateObj.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return {
+      name: d.title.length > 20 ? d.title.slice(0, 20) + "…" : d.title,
+      fullName: d.title,
+      score: d.riskScore,
+      dateLabel,
+      dateTimeLabel,
+    };
+  });
 
   const improvements = documents.filter(
     (d) => d.previousRiskScore != null && d.riskScore > (d.previousRiskScore ?? 0)
@@ -101,9 +113,8 @@ const RiskTrendsChart = ({ documents }: RiskTrendsChartProps) => {
             <LineChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis
-                dataKey="date"
+                dataKey="dateLabel"
                 tick={{ fontSize: 11 }}
-                tickFormatter={(_, i) => chartData[i]?.date || ""}
               />
               <YAxis
                 domain={[0, 100]}
@@ -121,7 +132,7 @@ const RiskTrendsChart = ({ documents }: RiskTrendsChartProps) => {
                         <div className="text-slate-600">
                           Score: <span className="font-semibold">{d.score}/100</span>
                         </div>
-                        <div className="text-slate-500 text-xs">{d.date}</div>
+                        <div className="text-slate-500 text-xs">{d.dateTimeLabel}</div>
                       </div>
                     );
                   }
