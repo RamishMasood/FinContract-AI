@@ -46,7 +46,11 @@ export interface AnalysisResponse {
     processingTimeSeconds: number;
     wordsAnalyzed: number;
   };
-  documentId?: string; // Add document ID to response
+  documentId?: string;
+  previousAnalysis?: {
+    overallRiskScore?: number;
+    redFlagsCount?: number;
+  } | null;
 }
 
 // Define the document type with analysis_data field

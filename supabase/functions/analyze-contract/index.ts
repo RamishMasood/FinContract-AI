@@ -304,14 +304,27 @@ CRITICAL REQUIREMENTS:
 
     console.log('Successfully completed Deepseek analysis');
 
-    // Update document in database
+    // Update document in database (preserve previousAnalysis for temporal comparison)
     if (documentId) {
+      let analysisDataToStore: typeof finalResult & { previousAnalysis?: unknown } = { ...finalResult };
+      const { data: existingDoc } = await supabase
+        .from('documents')
+        .select('analysis_data')
+        .eq('id', documentId)
+        .single();
+      if (existingDoc?.analysis_data && typeof existingDoc.analysis_data === 'object') {
+        const existing = existingDoc.analysis_data as { riskScore?: { overall?: number }; redFlags?: unknown[] };
+        analysisDataToStore.previousAnalysis = {
+          overallRiskScore: existing.riskScore?.overall,
+          redFlagsCount: Array.isArray(existing.redFlags) ? existing.redFlags.length : 0
+        };
+      }
       console.log('Updating document in database with analysis results');
       const { error: updateError } = await supabase
         .from('documents')
         .update({
           status: 'analyzed',
-          analysis_data: finalResult,
+          analysis_data: analysisDataToStore,
           pages: finalResult.processingMetrics.documentPages
         })
         .eq('id', documentId);

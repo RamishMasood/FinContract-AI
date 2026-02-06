@@ -106,6 +106,59 @@ CRITICAL REQUIREMENTS:
 6. Return valid JSON only - no markdown formatting`
       };
     }
+    case "monitoring_rules": {
+      return {
+        system: "You are FinContract AI: an expert in compliance monitoring and operational risk. Given contract analysis data, suggest operational monitoring rules that brokers/compliance teams should implement. Focus on: leverage thresholds, margin utilization alerts, position limit monitoring, suitability re-checks, KYC/AML triggers, and fraud detection rules. Return valid JSON only.",
+        user: `Based on this trading/finance contract analysis, suggest monitoring rules:
+
+Contract Summary: ${payload.summary || "N/A"}
+Red Flags: ${JSON.stringify(payload.redFlags || [])}
+Risk Score Sections: ${JSON.stringify(payload.riskScoreSections || [])}
+Missing Clauses: ${JSON.stringify(payload.missingClauses || [])}
+
+Return EXACTLY this JSON structure (no markdown, no extra text):
+{
+  "rules": [
+    {
+      "id": "unique-id",
+      "category": "margin|leverage|suitability|kyc|fraud|position|compliance",
+      "rule": "Specific monitoring rule (e.g. 'Alert when margin utilization exceeds 80%')",
+      "rationale": "Why this rule is needed based on contract terms",
+      "priority": "high|medium|low",
+      "suggestedThreshold": "Specific value if applicable (e.g. '80%', '1:500')"
+    }
+  ]
+}
+
+CRITICAL: Generate 3-8 rules based on actual contract risks. Be specific with thresholds. Return valid JSON only.`
+      };
+    }
+    case "regulatory_impact": {
+      return {
+        system: "You are FinContract AI: an expert in regulatory impact assessment. Given a regulatory update and contract analysis, assess whether the contract would be affected and how. Return valid JSON only.",
+        user: `Regulatory Update:
+Title: ${payload.updateTitle || "N/A"}
+Summary: ${payload.updateSummary || "N/A"}
+Impact Areas: ${JSON.stringify(payload.impactAreas || [])}
+Effective Date: ${payload.effectiveDate || "N/A"}
+
+Contract Analysis:
+Summary: ${payload.contractSummary || "N/A"}
+Red Flags: ${JSON.stringify(payload.redFlags || [])}
+Risk Sections: ${JSON.stringify(payload.riskScoreSections || [])}
+
+Assess: Is this contract affected by the regulatory update? Return EXACTLY this JSON:
+{
+  "isAffected": true|false,
+  "impactLevel": "high|medium|low|none",
+  "affectedAreas": ["list of contract areas that need changes"],
+  "requiredActions": ["specific action 1", "specific action 2"],
+  "deadlineNote": "Note about effective date and urgency"
+}
+
+Return valid JSON only - no markdown.`
+      };
+    }
     default:
       return { system: "You are FinContract AI: a helpful assistant for trading and finance contract compliance.", user: "Say hello." };
   }
@@ -223,6 +276,26 @@ serve(async (req: Request) => {
         }
       }
       
+      return new Response(JSON.stringify(resp), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    if (type === "monitoring_rules" || type === "regulatory_impact") {
+      const prompt = widgetPrompt(type, payload);
+      const resp = await queryDeepSeek(prompt.system, prompt.user, type);
+      if (resp.result && !resp.error) {
+        try {
+          let cleanResponse = resp.result;
+          cleanResponse = cleanResponse.replace(/```json\s*/, '').replace(/```\s*$/, '');
+          cleanResponse = cleanResponse.replace(/```\s*/, '');
+          const jsonMatch = cleanResponse.match(/\{[\s\S]*\}/);
+          if (jsonMatch) cleanResponse = jsonMatch[0];
+          const parsed = JSON.parse(cleanResponse);
+          return new Response(JSON.stringify({ result: parsed }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        } catch (parseError) {
+          console.error(`Failed to parse ${type} JSON:`, parseError);
+          return new Response(JSON.stringify({ error: "Failed to parse AI response" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        }
+      }
       return new Response(JSON.stringify(resp), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 

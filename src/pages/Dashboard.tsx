@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
-import { Search, Plus, SortDesc, SortAsc, Filter, UploadCloud, Mail, FileText, Activity, Globe, Shield, TrendingUp, BarChart3 } from "lucide-react";
+import { Search, Plus, SortDesc, SortAsc, UploadCloud, Mail, FileText, Globe, Shield, Radar } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -15,6 +15,8 @@ import contractAnalysisService from "@/services/contractAnalysisService";
 import usePlanUsage from "@/hooks/usePlanUsage";
 import DashboardAnalytics from "@/components/dashboard/DashboardAnalytics";
 import DemoMode from "@/components/dashboard/DemoMode";
+import RiskTrendsChart from "@/components/dashboard/RiskTrendsChart";
+import StaleAnalysisAlert from "@/components/dashboard/StaleAnalysisAlert";
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<"all" | "analyzed" | "pending">("all");
@@ -106,7 +108,9 @@ const Dashboard = () => {
     uploadDate: new Date(doc.created_at),
     status: doc.status as 'analyzed' | 'pending' | 'failed',
     fileType: doc.file_type as 'pdf' | 'docx' | 'text',
-    pages: doc.pages || 0
+    pages: doc.pages || 0,
+    analyzedAt: doc.status === 'analyzed' && doc.updated_at ? new Date(doc.updated_at) : undefined,
+    riskScore: doc.analysis_data?.riskScore?.overall
   });
   return <div className="flex flex-col min-h-screen">
       <Header />
@@ -116,6 +120,42 @@ const Dashboard = () => {
           {/* --- DASHBOARD ANALYTICS SECTION --- */}
           <DashboardAnalytics credits={credits} />
           {/* --- END ANALYTICS --- */}
+
+          {/* Stale Analysis Alert */}
+          {documents && documents.length > 0 && (
+            <div className="mx-12 mb-4">
+              <StaleAnalysisAlert documents={documents} />
+            </div>
+          )}
+
+          {/* Risk Trends & Regulatory Radar */}
+          {documents && documents.filter((d) => d.status === "analyzed" && d.analysis_data).length > 0 && (
+            <div className="mx-12 grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              <RiskTrendsChart
+                documents={documents
+                  .filter((d) => d.status === "analyzed" && d.analysis_data?.riskScore)
+                  .map((d) => ({
+                    id: d.id,
+                    title: d.title,
+                    analyzedAt: d.updated_at,
+                    riskScore: (d.analysis_data as { riskScore?: { overall?: number } })?.riskScore?.overall ?? 0,
+                    previousRiskScore: (d.analysis_data as { previousAnalysis?: { overallRiskScore?: number } })?.previousAnalysis?.overallRiskScore,
+                  }))}
+              />
+              <Link to="/dashboard/regulatory-radar" className="block">
+                <div className="h-full bg-white rounded-lg shadow-sm border border-blue-100 p-5 flex flex-col gap-2 hover:shadow-md transition cursor-pointer">
+                  <Radar className="h-5 w-5 mb-1 text-blue-600" />
+                  <h3 className="text-lg font-bold mb-1 text-slate-900">Regulatory Radar</h3>
+                  <p className="text-sm text-slate-600 flex-1">
+                    Track evolving regulations and assess impact on your contracts.
+                  </p>
+                  <Button variant="secondary" className="w-max mt-2 text-white bg-gradient-to-r from-[#1e3a5f] to-[#059669] hover:opacity-90 rounded-sm">
+                    Open Regulatory Radar
+                  </Button>
+                </div>
+              </Link>
+            </div>
+          )}
 
           {/* Demo Mode */}
           <div className="mx-12 my-6">
@@ -160,6 +200,16 @@ const Dashboard = () => {
                 <h3 className="text-lg font-bold mb-1 text-slate-900">Jurisdiction-Specific Rules</h3>
                 <p className="text-sm text-slate-600 flex-1">
                   Get MiFID, CFTC, FCA, UAE SCA rules and clause suggestions by region.
+                </p>
+                <Button variant="secondary" className="w-max mt-2 bg-gradient-to-r from-[#1e3a5f] to-[#059669] text-white hover:opacity-90">Open Tool</Button>
+              </div>
+            </Link>
+            <Link to="/dashboard/regulatory-radar">
+              <div className="bg-white rounded-lg shadow-sm border border-blue-100 p-5 flex flex-col gap-2 hover:shadow-md transition cursor-pointer h-full">
+                <Radar className="h-5 w-5 mb-1 text-blue-600" />
+                <h3 className="text-lg font-bold mb-1 text-slate-900">Regulatory Radar</h3>
+                <p className="text-sm text-slate-600 flex-1">
+                  Track evolving regulations and assess impact on your contracts.
                 </p>
                 <Button variant="secondary" className="w-max mt-2 bg-gradient-to-r from-[#1e3a5f] to-[#059669] text-white hover:opacity-90">Open Tool</Button>
               </div>

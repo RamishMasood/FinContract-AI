@@ -27,6 +27,7 @@ import DisputeEmailPage from "./pages/DisputeEmail";
 import AgreementGeneratorPage from "./pages/AgreementGenerator";
 import LegalChatPage from "./pages/LegalChat";
 import JurisdictionSuggestionPage from "./pages/JurisdictionSuggestion";
+import RegulatoryRadarPage from "./pages/RegulatoryRadarPage";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => {
               <Route path="/dashboard/agreement-generator" element={<AgreementGeneratorPage />} />
               <Route path="/dashboard/legal-chat" element={<LegalChatPage />} />
               <Route path="/dashboard/jurisdiction-suggestion" element={<JurisdictionSuggestionPage />} />
+              <Route path="/dashboard/regulatory-radar" element={<RegulatoryRadarPage />} />
               <Route path="/features" element={<Features />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/billing" element={<Billing />} />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { AlertCircle, CheckCircle2, Clock, FileText, MoreVertical, Download, Trash2, Eye } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock, FileText, MoreVertical, Eye, RefreshCw } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import contractAnalysisService from "@/services/contractAnalysisService";
@@ -14,6 +14,8 @@ export type Document = {
   status: DocumentStatus;
   fileType: "pdf" | "docx" | "text";
   pages?: number;
+  analyzedAt?: Date;
+  riskScore?: number;
 };
 type DocumentCardProps = {
   document: Document;
@@ -154,14 +156,28 @@ const DocumentCard = ({
         </div>
       </div>
       
-      <div className="flex items-center justify-between mt-2">
-        <Badge variant="outline" className={`${getStatusColor(doc.status)} flex items-center gap-1`}>
-          {getStatusIcon(doc.status)}
-          <span>{getStatusText(doc.status)}</span>
-        </Badge>
-        <Link to={`/dashboard/document/${doc.id}`} className={`text-sm font-medium text-legal-primary hover:underline ${doc.status !== 'analyzed' ? 'opacity-50 pointer-events-none' : ''}`}>
-          View Analysis
-        </Link>
+      <div className="flex flex-col gap-2 mt-2">
+        <div className="flex items-center justify-between">
+          <Badge variant="outline" className={`${getStatusColor(doc.status)} flex items-center gap-1`}>
+            {getStatusIcon(doc.status)}
+            <span>{getStatusText(doc.status)}</span>
+          </Badge>
+          <Link to={`/dashboard/document/${doc.id}`} className={`text-sm font-medium text-legal-primary hover:underline ${doc.status !== 'analyzed' ? 'opacity-50 pointer-events-none' : ''}`}>
+            View Analysis
+          </Link>
+        </div>
+        {doc.status === 'analyzed' && doc.analyzedAt && (() => {
+          const daysSince = (Date.now() - doc.analyzedAt.getTime()) / (1000 * 60 * 60 * 24);
+          if (daysSince >= 30) {
+            return (
+              <div className="flex items-center gap-1 text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">
+                <RefreshCw className="h-3 w-3" />
+                Re-analyze recommended ({Math.floor(daysSince)}d ago)
+              </div>
+            );
+          }
+          return null;
+        })()}
       </div>
     </Card>;
 };

@@ -22,6 +22,8 @@ import RiskChart from "@/components/dashboard/RiskChart";
 import PredictiveSuggestions from "@/components/dashboard/PredictiveSuggestions";
 import ProactiveAlerts from "@/components/dashboard/ProactiveAlerts";
 import AuditLog from "@/components/dashboard/AuditLog";
+import MonitoringRuleSuggestions from "@/components/dashboard/MonitoringRuleSuggestions";
+import TemporalComparison from "@/components/dashboard/TemporalComparison";
 import { addAuditLog } from "@/components/dashboard/AuditLog";
 import contractAnalysisService, { AnalysisResponse } from "@/services/contractAnalysisService";
 import { useQuery } from "@tanstack/react-query";
@@ -71,7 +73,8 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
           redFlags: Array.isArray(analysisData.redFlags) ? analysisData.redFlags : [],
           missingClauses: Array.isArray(analysisData.missingClauses) ? analysisData.missingClauses : [],
           suggestedEdits: Array.isArray(analysisData.suggestedEdits) ? analysisData.suggestedEdits : [],
-          riskScore: analysisData.riskScore || { 
+          previousAnalysis: analysisData.previousAnalysis || null,
+          riskScore: analysisData.riskScore || {
             overall: 50, 
             sections: [
               { name: "Liability", score: 55, issues: 1 },
@@ -475,6 +478,16 @@ const ContractAnalysis = ({ documentId }: ContractAnalysisProps) => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <RiskChart riskScore={analysis.riskScore} redFlagsCount={analysis.redFlags?.length || 0} />
                   <PredictiveSuggestions analysis={analysis} contractType="cfd" />
+                  {(analysis as { previousAnalysis?: { overallRiskScore?: number; redFlagsCount?: number } }).previousAnalysis && (
+                    <TemporalComparison
+                      currentScore={analysis.riskScore.overall}
+                      currentRedFlagsCount={analysis.redFlags?.length || 0}
+                      previousAnalysis={(analysis as { previousAnalysis?: { overallRiskScore?: number; redFlagsCount?: number } }).previousAnalysis}
+                    />
+                  )}
+                  <div className="lg:col-span-2">
+                    <MonitoringRuleSuggestions analysis={analysis} />
+                  </div>
                 </div>
               )}
               
