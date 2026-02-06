@@ -252,7 +252,7 @@ export default function LegalAdviceChatWidget() {
         <div className="bg-legal-primary p-2 rounded-lg">
           <Activity className="h-5 w-5 text-white" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900">Legal Advisor</h3>
+        <h3 className="text-xl font-bold text-slate-900">Regulatory Risk Advisor</h3>
         <span className="text-xs bg-legal-primary/10 text-legal-primary px-2 py-1 rounded-full font-medium ml-auto">AI-Powered</span>
       </div>
       {/* Action Buttons */}
@@ -299,7 +299,7 @@ export default function LegalAdviceChatWidget() {
 
       {/* Instruction Text */}
       <p className="text-sm text-slate-600 mb-4 bg-legal-primary/5 rounded-lg p-3 border border-legal-primary/20">
-        💡 <strong>Ask anything about contracts:</strong> "Can my client legally delay payment if they said it's net-15?" Your conversations are saved automatically.
+        💡 <strong>Ask about trading & compliance:</strong> "Does this CFD clause meet CFTC requirements?" or "Is this leverage term compliant under Malta law?" Your conversations are saved automatically.
       </p>
       
       {/* Chat Container */}
@@ -312,7 +312,7 @@ export default function LegalAdviceChatWidget() {
           <div className="h-full flex items-center justify-center">
             <div className="text-center">
               <Bot className="h-12 w-12 text-slate-300 mx-auto mb-2" />
-              <p className="text-slate-400 text-sm">Start a conversation to get legal insights...</p>
+              <p className="text-slate-400 text-sm">Ask about trading compliance, leverage rules, and jurisdiction-specific regulations...</p>
             </div>
           </div>
         )}
@@ -360,7 +360,7 @@ export default function LegalAdviceChatWidget() {
         <Input 
           value={question} 
           onChange={e => setQuestion(e.target.value)} 
-          placeholder="Ask about contracts, clauses, compliance..." 
+          placeholder="Ask about CFD clauses, leverage, FCA/CFTC/Malta rules..." 
           onKeyDown={e => {
             if (e.key === "Enter" && !loading) handleSend();
           }} 

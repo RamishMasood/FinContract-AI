@@ -200,7 +200,7 @@ const Features = () => {
                       value="chat" 
                       className="flex-1 text-sm py-3 px-1 font-medium text-gray-600 rounded-none border-b-2 border-transparent data-[state=active]:border-legal-primary data-[state=active]:text-legal-primary transition-all duration-300"
                     >
-                      <span className="whitespace-nowrap">Legal Chat</span>
+                      <span className="whitespace-nowrap">Regulatory Chat</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="disputes" 
@@ -235,7 +235,7 @@ const Features = () => {
                       value="chat" 
                       className="flex-1 text-base lg:text-lg py-4 px-2 font-medium text-gray-600 rounded-none border-b-2 border-transparent data-[state=active]:border-legal-primary data-[state=active]:text-legal-primary transition-all duration-300"
                     >
-                      Legal Chat
+                      Regulatory Chat
                     </TabsTrigger>
                     <TabsTrigger 
                       value="disputes" 
@@ -518,7 +518,7 @@ const Features = () => {
                       Contextual Advice
                     </h3>
                     <p className="text-legal-muted mb-6 text-base md:text-lg">
-                      Receive tailored legal advice based on your specific situation, industry, and jurisdiction requirements.
+                      Receive tailored regulatory guidance based on your trading scenario, industry, and jurisdiction requirements.
                     </p>
                     <ul className="space-y-3 text-base md:text-lg">
                       <li className="flex items-start">
@@ -606,7 +606,7 @@ const Features = () => {
                       Regional Legal Guidance
                     </h3>
                     <p className="text-legal-muted mb-6 text-base md:text-lg">
-                      Get specific legal advice tailored to your jurisdiction, including local laws, regulations, and business practices.
+                      Get specific regulatory guidance tailored to your jurisdiction, including local trading laws, regulations, and best practices.
                     </p>
                     <ul className="space-y-3 text-base md:text-lg">
                       <li className="flex items-start">
@@ -738,7 +738,7 @@ const Features = () => {
                     </div>
                   </div>
                   <p className="text-legal-muted italic mb-8 text-base md:text-lg">
-                    "The complete legal suite is incredible. Contract analysis, NDA generation, and legal chat all in one platform has revolutionized our workflow."
+                    "The complete trading compliance suite is incredible. Contract analysis, NDA generation, and regulatory chat all in one platform has revolutionized our workflow."
                   </p>
                   <div className="flex items-center">
                     <div className="h-12 w-12 rounded-full bg-legal-primary/20 flex items-center justify-center mr-4">
@@ -819,14 +819,14 @@ const Features = () => {
                 <AccordionItem value="item-1" className="border border-gray-200 rounded-lg mb-4 overflow-hidden">
                   <AccordionTrigger className="text-left text-base md:text-lg font-semibold bg-gray-50 hover:bg-gray-100 px-6 py-4 transition-all">What tools are included in the complete legal suite?</AccordionTrigger>
                   <AccordionContent className="text-base md:text-lg p-6 bg-white">
-                    Our complete legal suite includes five AI-powered tools: Contract Analysis & Review, Auto NDA & Agreement Generator, Legal Advice Chat, Email-Based Dispute Response, and Jurisdiction-Based Suggestions. Each tool is designed to handle specific legal document needs with professional accuracy.
+                    Our complete trading compliance suite includes five AI-powered tools: Contract Analysis & Review, Compliant Agreement Generator, Regulatory Risk Chat, Email-Based Dispute Response, and Jurisdiction-Specific Rules. Each tool is designed to handle specific trading and compliance document needs with professional accuracy.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-2" className="border border-gray-200 rounded-lg mb-4 overflow-hidden">
                   <AccordionTrigger className="text-left text-base md:text-lg font-semibold bg-gray-50 hover:bg-gray-100 px-6 py-4 transition-all">Which tools require a subscription?</AccordionTrigger>
                   <AccordionContent className="text-base md:text-lg p-6 bg-white">
-                    The Contract Analysis tool is available across all plans. However, the Auto NDA & Agreement Generator, Legal Advice Chat, Email-Based Dispute Response, and Jurisdiction-Based Suggestions are premium features that require a Monthly Subscription plan for full access.
+                    The Contract Analysis tool is available across all plans. However, the Compliant Agreement Generator, Regulatory Risk Chat, Email-Based Dispute Response, and Jurisdiction-Specific Rules are premium features that require a Monthly Subscription plan for full access.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -841,7 +841,7 @@ const Features = () => {
                 <AccordionItem value="item-5" className="border border-gray-200 rounded-lg mb-4 overflow-hidden">
                   <AccordionTrigger className="text-left text-base md:text-lg font-semibold bg-gray-50 hover:bg-gray-100 px-6 py-4 transition-all">Can I try all tools before subscribing?</AccordionTrigger>
                   <AccordionContent className="text-base md:text-lg p-6 bg-white">
-                    Yes! We offer a free trial that includes one complete contract analysis. To access the premium tools (NDA Generator, Legal Chat, Dispute Response, and Jurisdiction Suggestions), you'll need to upgrade to our Monthly Subscription plan, which gives you unlimited access to all tools.
+                    Yes! We offer a free trial that includes one complete contract analysis. To access the premium tools (Agreement Generator, Regulatory Chat, Dispute Response, and Jurisdiction Rules), you'll need to upgrade to our Monthly Subscription plan, which gives you unlimited access to all tools.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

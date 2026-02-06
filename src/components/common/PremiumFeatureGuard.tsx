@@ -60,10 +60,10 @@ export default function PremiumFeatureGuard({
               Upgrade to Premium Subscription to access:
             </p>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Auto NDA & Agreement Generator</li>
-              <li>• Legal Advice Chat</li>
+              <li>• Compliant Agreement Generator</li>
+              <li>• Regulatory Risk Chat</li>
               <li>• Email Dispute Response</li>
-              <li>• Jurisdiction-Based Suggestions</li>
+              <li>• Jurisdiction-Specific Rules</li>
               <li>• Unlimited Contract Analysis</li>
             </ul>
           </div>
