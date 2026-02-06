@@ -493,16 +493,21 @@ function EnhancedBenefit({
 function VerticalImageRotator() {
   // Make sure these filenames match exactly with your /public/images folder (no spaces, correct case)
   const images = [
-    "/images/Analysis.png",
-    "/images/RedFlags.png",
-    "/images/Suggestions.png",
+    "/images/Analysis1.png",
+    "/images/Analysis2.png",
+    "/images/Analysis3.png",
+    "/images/Analysis4.png",
+    "/images/Audit Log.png",
     "/images/Compare.png",
-    "/images/Explanations.png",
-    "/images/LegalChat.png",
+    "/images/Dashboard.png",
     "/images/Disputes.png",
+    "/images/Explanations.png",
     "/images/Generate.png",
     "/images/Jurisdiction.png",
-    "/images/Dashboard.png",
+    "/images/LegalChat.png",
+    "/images/RedFlags.png",
+    "/images/Regulatory Radar.png",
+    "/images/Suggestions.png",
   ];
   const [current, setCurrent] = useState(0);
   const [broken, setBroken] = useState<number[]>([]);

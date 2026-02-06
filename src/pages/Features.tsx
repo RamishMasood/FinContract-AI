@@ -14,16 +14,21 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 function VerticalImageRotator() {
   // Make sure these filenames match exactly with your /public/images folder (no spaces, correct case)
   const images = [
-    "/images/Analysis.png",
-    "/images/RedFlags.png",
-    "/images/Suggestions.png",
+    "/images/Analysis1.png",
+    "/images/Analysis2.png",
+    "/images/Analysis3.png",
+    "/images/Analysis4.png",
+    "/images/Audit Log.png",
     "/images/Compare.png",
-    "/images/Explanations.png",
-    "/images/LegalChat.png",
+    "/images/Dashboard.png",
     "/images/Disputes.png",
+    "/images/Explanations.png",
     "/images/Generate.png",
     "/images/Jurisdiction.png",
-    "/images/Dashboard.png",
+    "/images/LegalChat.png",
+    "/images/RedFlags.png",
+    "/images/Regulatory Radar.png",
+    "/images/Suggestions.png",
   ];
   const [current, setCurrent] = React.useState(0);
   const [broken, setBroken] = React.useState<number[]>([]);
@@ -177,7 +182,6 @@ const Features = () => {
             
             <Tabs defaultValue="analyze" className="max-w-5xl mx-auto">
               <div className="relative mb-8 md:mb-16">
-                {/* Mobile scrollable tabs (visible only on small screens) */}
                 <div className="block md:hidden overflow-x-auto pb-3 no-scrollbar">
                   <TabsList className="flex w-full justify-between bg-transparent border-b border-gray-200 min-w-[600px]">
                     <TabsTrigger 
@@ -213,7 +217,6 @@ const Features = () => {
                   </TabsList>
                 </div>
 
-                {/* Desktop tabs (visible only on medium screens and up) */}
                 <div className="hidden md:block">
                   <TabsList className="flex w-full justify-between bg-transparent border-b border-gray-200">
                     <TabsTrigger 
@@ -251,9 +254,6 @@ const Features = () => {
               </div>
               
               <TabsContent value="analyze" className="border rounded-xl bg-white p-4 md:p-6 lg:p-10 shadow-lg mt-4 md:mt-8 lg:mt-12 transition-all duration-500 animate-fade-in">
-                <div className="flex justify-center mb-8">
-                  <img src="/images/Analysis.png" alt="FinContract AI trading contract analysis – risk assessment, red flags, and improvement suggestions for CFDs and client agreements" className="rounded-xl shadow-md" loading="lazy" decoding="async" />
-                </div>
                 <p className="text-slate-600 mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100">
                   <strong>Finance example:</strong> Upload CFD terms → Flags: &quot;High leverage may cause losses exceeding margin&quot;, &quot;Broker unilateral closure risk (high)&quot;.
                 </p>
@@ -429,9 +429,6 @@ const Features = () => {
                   <Crown className="h-6 w-6 text-amber-500" />
                   <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-bold px-3 py-1.5 rounded-md">Monthly Subscription Required</span>
                 </div>
-                <div className="flex justify-center mb-8">
-                  <img src="/images/Generate.png" alt="FinContract AI – generate compliant trading agreements, NDAs and client contracts" className="rounded-xl shadow-md " loading="lazy" decoding="async" />
-                </div>
                 <p className="text-slate-600 mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100">
                   <strong>Finance example:</strong> Create compliant NDAs for trading partners or client agreements for brokers and fintech.
                 </p>
@@ -486,9 +483,6 @@ const Features = () => {
                 <div className="flex items-center gap-3 mb-8 bg-amber-50 p-3 rounded-lg border border-amber-200">
                   <Crown className="h-6 w-6 text-amber-500" />
                   <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-bold px-3 py-1.5 rounded-md">Monthly Subscription Required</span>
-                </div>
-                <div className="flex justify-center mb-8">
-                  <img src="/images/LegalChat.png" alt="FinContract AI regulatory risk chat – ask compliance questions (e.g. Malta, CFTC)" className="rounded-xl shadow-md " loading="lazy" decoding="async" />
                 </div>
                 <p className="text-slate-600 mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100">
                   <strong>Finance example:</strong> Ask: &quot;Does this futures clause meet CFTC requirements?&quot; or &quot;Is this CFD clause compliant under Malta law?&quot;
@@ -549,9 +543,6 @@ const Features = () => {
                   <Crown className="h-6 w-6 text-amber-500" />
                   <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-bold px-3 py-1.5 rounded-md">Monthly Subscription Required</span>
                 </div>
-                <div className="flex justify-center mb-8">
-                  <img src="/images/Disputes.png" alt="FinContract AI dispute and communication tools for trading and client agreements" className="rounded-xl shadow-md" loading="lazy" decoding="async" />
-                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-16 gap-y-8 md:gap-y-12">
                   <div className="bg-gray-50 p-6 rounded-xl hover:shadow-md transition-all duration-300 hover:bg-white">
                     <h3 className="text-xl font-bold mb-4 flex items-center text-red-600">
@@ -607,9 +598,6 @@ const Features = () => {
                 <div className="flex items-center gap-3 mb-8 bg-amber-50 p-3 rounded-lg border border-amber-200">
                   <Crown className="h-6 w-6 text-amber-500" />
                   <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-bold px-3 py-1.5 rounded-md">Monthly Subscription Required</span>
-                </div>
-                <div className="flex justify-center mb-8">
-                  <img src="/images/Jurisdiction.png" alt="FinContract AI jurisdiction-specific trading rules – EU MiFID, UAE SCA, Malta, FCA, CFTC" className="rounded-xl shadow-md" loading="lazy" decoding="async" />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-16 gap-y-8 md:gap-y-12">
                   <div className="bg-gray-50 p-6 rounded-xl hover:shadow-md transition-all duration-300 hover:bg-white">
@@ -676,7 +664,7 @@ const Features = () => {
             </div>
             
             <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                 <div className="text-center relative bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100">
                   <div className="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
                     <Upload className="h-8 w-8 text-blue-600" />

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Activity, ChevronDown, ChevronUp } from "lucide-react";
+import { Activity, ChevronDown, ChevronUp, Send, Bot, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -134,17 +134,17 @@ function ExpandableMessage({
 
   // For AI messages with markdown, we'll always show them in full to preserve formatting
   if (isAI) {
-    return <MarkdownRenderer content={content} />;
+    return <div className="text-sm leading-relaxed"><MarkdownRenderer content={content} /></div>;
   }
-  return <div>
+  return <div className="text-sm">
       {isLongMessage && !isExpanded ? <>
           <span>{content.substring(0, 300)}...</span>
-          <Button variant="link" size="sm" onClick={() => setIsExpanded(true)} className="text-xs p-0 h-auto ml-1">
+          <Button variant="link" size="sm" onClick={() => setIsExpanded(true)} className="text-xs p-0 h-auto ml-1 text-blue-600">
             Show more
           </Button>
         </> : <>
           <span>{content}</span>
-          {isLongMessage && <Button variant="link" size="sm" onClick={() => setIsExpanded(false)} className="text-xs p-0 h-auto ml-1">
+          {isLongMessage && <Button variant="link" size="sm" onClick={() => setIsExpanded(false)} className="text-xs p-0 h-auto ml-1 text-blue-600">
               Show less
             </Button>}
         </>}
@@ -246,59 +246,135 @@ export default function LegalAdviceChatWidget() {
     setCurrentSession(session);
     setShowHistory(false);
   };
-  return <section className="bg-white rounded-lg shadow-sm border p-5 my-4">
-      <h3 className="text-lg font-bold flex items-center gap-2 mb-2 text-slate-900">
-        <Activity className="h-5 w-5 text-blue-600" /> Regulatory Risk Chat
-      </h3>
-      <div className="flex items-center justify-between mb-2">
-        <Button size="sm" variant="secondary" onClick={handleNewChat} className="mr-2 bg-[#1e3a5f] hover:bg-[#2563eb] text-slate-50">
-          New Chat
+  return <section className="bg-gradient-to-br from-slate-50 to-legal-primary/5 rounded-xl shadow-lg border border-legal-primary/20 p-6 my-4">
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-4">
+        <div className="bg-legal-primary p-2 rounded-lg">
+          <Activity className="h-5 w-5 text-white" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-900">Legal Advisor</h3>
+        <span className="text-xs bg-legal-primary/10 text-legal-primary px-2 py-1 rounded-full font-medium ml-auto">AI-Powered</span>
+      </div>
+      {/* Action Buttons */}
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-legal-primary/20">
+        <Button 
+          size="sm" 
+          onClick={handleNewChat} 
+          className="bg-legal-primary hover:bg-legal-primary/90 text-white shadow-sm"
+        >
+          ✨ New Chat
         </Button>
-        <Button size="sm" variant="ghost" onClick={() => setShowHistory(show => !show)} className="flex items-center">
+        <Button 
+          size="sm" 
+          variant="ghost" 
+          onClick={() => setShowHistory(show => !show)}
+          className="text-legal-primary hover:bg-legal-primary/5"
+        >
           {showHistory ? <>
               <ChevronUp className="w-4 h-4 mr-1" /> Hide History
             </> : <>
-              <ChevronDown className="w-4 h-4 mr-1" /> Previous Chats
+              <ChevronDown className="w-4 h-4 mr-1" /> Previous Chats ({sessions.length})
             </>}
         </Button>
       </div>
-      {showHistory && <div className="mb-3 border-b pb-2">
-          {loadingChats && <div className="text-sm text-gray-500">Loading previous chats...</div>}
-          {!loadingChats && sessions.length === 0 && <div className="text-sm text-gray-400">No previous chats.</div>}
-          {!loadingChats && sessions.length > 0 && sessions.map(s => <Button variant={currentSession?.id === s.id ? "outline" : "ghost"} size="sm" className="block w-full text-left truncate my-[2px]" key={s.id} onClick={() => handleSelectSession(s)}>
-                {s.chat.length > 0 ? s.chat[0].content.slice(0, 45) + (s.chat[0].content.length > 45 ? "..." : "") : "Untitled"}
-                <span className="ml-2 text-xs text-gray-400">
+      {/* Chat History Dropdown */}
+      {showHistory && <div className="mb-4 bg-white rounded-lg border border-legal-primary/20 p-3 max-h-48 overflow-y-auto">
+          {loadingChats && <div className="text-sm text-gray-500 p-2">Loading previous chats...</div>}
+          {!loadingChats && sessions.length === 0 && <div className="text-sm text-gray-400 p-2">No previous chats.</div>}
+          {!loadingChats && sessions.length > 0 && sessions.map(s => <Button 
+            variant={currentSession?.id === s.id ? "default" : "ghost"} 
+            size="sm" 
+            className={`w-full text-left truncate mb-2 justify-start ${currentSession?.id === s.id ? 'bg-legal-primary text-white' : ''}`}
+            key={s.id} 
+            onClick={() => handleSelectSession(s)}
+          >
+                <span className="truncate flex-1">
+                  {s.chat.length > 0 ? s.chat[0].content.slice(0, 45) + (s.chat[0].content.length > 45 ? "..." : "") : "Untitled"}
+                </span>
+                <span className={`text-xs ml-2 ${currentSession?.id === s.id ? 'text-legal-primary/60' : 'text-gray-400'}`}>
                   {new Date(s.created_at).toLocaleString()}
                 </span>
               </Button>)}
         </div>}
 
-      <p className="text-sm text-legal-muted mb-3">
-        Ask a legal question (e.g., "Can my client legally delay payment if they said it’s net-15?").
-        Your conversations are saved so you can review them later.
+      {/* Instruction Text */}
+      <p className="text-sm text-slate-600 mb-4 bg-legal-primary/5 rounded-lg p-3 border border-legal-primary/20">
+        💡 <strong>Ask anything about contracts:</strong> "Can my client legally delay payment if they said it's net-15?" Your conversations are saved automatically.
       </p>
-      <div className="flex gap-2 mb-2">
-        <Input value={question} onChange={e => setQuestion(e.target.value)} placeholder="e.g. Is this leverage clause MiFID II compliant?" onKeyDown={e => {
-        if (e.key === "Enter" && !loading) handleSend();
-      }} disabled={loading} />
-        <Button size="sm" onClick={handleSend} disabled={loading}>
-          {loading ? "Asking..." : "Ask"}
-        </Button>
-      </div>
       
-      {/* Updated chat container: resizable and scrolls to bottom */}
+      {/* Chat Container */}
       <div
         ref={chatContainerRef}
-        className="rounded bg-gray-50 min-h-[180px] max-h-[600px] overflow-y-auto mb-1 py-[12px] px-[11px] resize-y"
-        style={{ minHeight: 180, maxHeight: 600 }}
+        className="rounded-lg bg-white border border-legal-primary/20 min-h-[200px] max-h-[500px] overflow-y-auto mb-4 p-4 shadow-inner"
+        style={{ minHeight: 200, maxHeight: 500 }}
       >
-        {chat.length === 0 && <p className="text-gray-400 text-sm">No chat yet.</p>}
-        {chat.map((msg, idx) => <div key={idx} className="py-[2px] my-[10px]">
-            <div className={`inline-block px-3 py-2 rounded-lg max-w-[90%] break-words ${msg.role === "user" ? "bg-[#1e3a5f] text-white" : "bg-slate-200 text-slate-800"}`}>
-              {msg.role === "ai" ? <ExpandableMessage content={msg.content} isAI={true} /> : <ExpandableMessage content={msg.content} />}
+        {chat.length === 0 && (
+          <div className="h-full flex items-center justify-center">
+            <div className="text-center">
+              <Bot className="h-12 w-12 text-slate-300 mx-auto mb-2" />
+              <p className="text-slate-400 text-sm">Start a conversation to get legal insights...</p>
             </div>
-          </div>)}
-        {loading && <div className="text-xs text-gray-500 italic">AI is typing…</div>}
+          </div>
+        )}
+        {chat.map((msg, idx) => (
+          <div key={idx} className={`flex gap-3 mb-4 animate-fade-in ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+            {/* Avatar */}
+            <div className={`flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold ${
+              msg.role === "user" 
+                ? "bg-legal-primary" 
+                : "bg-legal-accent"
+            }`}>
+              {msg.role === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+            </div>
+            
+            {/* Message Bubble */}
+            <div className={`flex-1 max-w-xs lg:max-w-md ${msg.role === "user" ? "items-end" : "items-start"}`}>
+              <div className={`px-4 py-3 rounded-2xl ${
+                msg.role === "user" 
+                  ? "bg-legal-primary text-white rounded-br-none shadow-md" 
+                  : "bg-slate-100 text-slate-800 rounded-bl-none shadow-sm border border-legal-primary/20"
+              }`}>
+                <ExpandableMessage content={msg.content} isAI={msg.role === "ai"} />
+              </div>
+            </div>
+          </div>
+        ))}
+        {loading && (
+          <div className="flex gap-3 mb-4">
+            <div className="flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center bg-legal-accent">
+              <Bot className="h-4 w-4 text-white" />
+            </div>
+            <div className="flex gap-2 items-center bg-slate-100 px-4 py-3 rounded-2xl rounded-bl-none border border-legal-primary/20">
+              <div className="flex gap-1">
+                <div className="w-2 h-2 bg-legal-accent/60 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-legal-accent/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 bg-legal-accent/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+              <span className="text-xs text-legal-primary ml-1">AI is thinking...</span>
+            </div>
+          </div>
+        )}
+      </div>
+      {/* Input Area */}
+      <div className="flex gap-2 bg-slate-50 rounded-lg p-3 border border-legal-primary/20">
+        <Input 
+          value={question} 
+          onChange={e => setQuestion(e.target.value)} 
+          placeholder="Ask about contracts, clauses, compliance..." 
+          onKeyDown={e => {
+            if (e.key === "Enter" && !loading) handleSend();
+          }} 
+          disabled={loading}
+          className="bg-white border-legal-primary/20 focus:border-legal-primary focus:ring-legal-primary"
+        />
+        <Button 
+          size="sm" 
+          onClick={handleSend} 
+          disabled={loading}
+          className="bg-legal-primary hover:bg-legal-primary/90 text-white px-4 shadow-md"
+        >
+          <Send className="h-4 w-4" />
+        </Button>
       </div>
     </section>;
 }

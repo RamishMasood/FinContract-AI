@@ -30,10 +30,10 @@ const RegulatoryRadarPage = () => {
             <ChevronLeft className="h-4 w-4 mr-1" />
             Back to Dashboard
           </Link>
-          <h1 className="text-2xl font-bold text-slate-900 mb-2">Regulatory Radar</h1>
+          {/* <h1 className="text-2xl font-bold text-slate-900 mb-2">Regulatory Radar</h1>
           <p className="text-slate-600 mb-6">
             Track evolving regulations and assess impact on your contracts. Never be surprised by regulatory change.
-          </p>
+          </p> */}
           <RegulatoryRadar documents={documentSummaries} />
         </div>
       </main>
