@@ -42,8 +42,10 @@ const Index = () => {
       "Trading Contract Risk Scanner",
       "Compliant Agreement & NDA Generator",
       "Regulatory Risk Chat",
-      "Predictive Compliance Scoring",
-      "Jurisdiction-Specific Trading Rules (MiFID, SCA, etc.)"
+      "Predictive Compliance Scoring & Monitoring Rules",
+      "Jurisdiction-Specific Trading Rules (MiFID, SCA, etc.)",
+      "Risk Trends Dashboard & Audit Log",
+      "Regulatory Radar & Proactive Compliance Alerts"
     ],
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "5000", "bestRating": "5", "worstRating": "1" }
   };
@@ -183,22 +185,30 @@ const Index = () => {
               />
               <div className="basis-full h-0" />
               <div className="flex justify-center w-full gap-8 flex-col sm:flex-row items-center">
-                <AnimatedCard 
-                  icon={<BarChart className="h-8 w-8 text-amber-600" />} 
-                  title="Predictive Compliance Scoring" 
-                  text="Overall and section-level compliance scores so you prioritize fixes and reduce risk early." 
-                  delay={0.3} 
-                  premium={true}
-                  cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
-                />
-                <AnimatedCard 
-                  icon={<Scale className="h-8 w-8 text-slate-700" />} 
-                  title="Jurisdiction-Specific Trading Rules" 
-                  text="EU MiFID, UAE SCA, FCA, CFTC, Malta – get rules and clause suggestions by region." 
-                  delay={0.4} 
-                  premium={true}
-                  cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
-                />
+              <AnimatedCard 
+                icon={<BarChart className="h-8 w-8 text-amber-600" />} 
+                title="Risk Trends & Predictive Suggestions" 
+                text="See contract risk over time with Risk Trends plus AI predictive suggestions and monitoring rules to prevent issues early." 
+                delay={0.3} 
+                premium={true}
+                cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
+              />
+              <AnimatedCard 
+                icon={<Scale className="h-8 w-8 text-slate-700" />} 
+                title="Jurisdiction-Specific Trading Rules" 
+                text="EU MiFID, UAE SCA, FCA, CFTC, Malta – get rules and clause suggestions by region." 
+                delay={0.4} 
+                premium={true}
+                cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
+              />
+              <AnimatedCard 
+                icon={<Shield className="h-8 w-8 text-indigo-600" />} 
+                title="Regulatory Radar & Audit Log" 
+                text="Track evolving regulations, stale analyses, and every action in an audit-ready log – with one-click re-analyze when rules change." 
+                delay={0.5} 
+                premium={true}
+                cardClassName="max-w-md min-w-[260px] sm:min-w-[400px] flex-1 w-full"
+              />
               </div>
             </div>
           </div>

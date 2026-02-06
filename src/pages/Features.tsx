@@ -96,8 +96,10 @@ const Features = () => {
         "Trading Contract Risk Scanner",
         "Compliant NDA and Client Agreement Generator",
         "Regulatory Risk Chat (e.g. Malta, CFTC)",
-        "Predictive Compliance Scoring",
-        "Jurisdiction-Specific Trading Rules (MiFID, SCA, etc.)"
+        "Predictive Compliance Scoring & Monitoring Rules",
+        "Jurisdiction-Specific Trading Rules (MiFID, SCA, etc.)",
+        "Risk Trends Dashboard & Audit Log",
+        "Regulatory Radar & Proactive Alerts"
       ]
     }
   };
@@ -169,7 +171,7 @@ const Features = () => {
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Feature Set for Trading & Finance</h2>
               <p className="text-slate-600 text-lg md:text-xl hidden sm:block">
-                Contract risk scanner, compliant agreements, regulatory chat, and jurisdiction rules – with finance examples below.
+                Contract risk scanner, compliant agreements, regulatory chat, jurisdiction rules – plus Risk Trends, Regulatory Radar, audit logs and re-analyze workflows.
               </p>
             </div>
             
@@ -393,7 +395,30 @@ const Features = () => {
                         <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                         <span>List of actionable improvements</span>
                       </li>
-                    
+                    </ul>
+                  </div>
+
+                  <div className="bg-gray-50 p-6 rounded-xl hover:shadow-md transition-all duration-300 hover:bg-white">
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 flex items-center text-slate-800">
+                      <BarChart3 className="h-6 w-6 mr-3" />
+                      Dashboard Intelligence
+                    </h3>
+                    <p className="text-legal-muted mb-6 text-base md:text-lg">
+                      Risk Trends graph, Regulatory Radar, stale-analysis alerts, audit log, monitoring rules, and one-click re-analyze – all from a single dashboard.
+                    </p>
+                    <ul className="space-y-3 text-base md:text-lg">
+                      <li className="flex items-start">
+                        <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                        <span>Risk Trends and predictive suggestions to spot patterns early</span>
+                      </li>
+                      <li className="flex items-start">
+                        <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                        <span>Regulatory Radar and stale-analysis alerts for proactive compliance</span>
+                      </li>
+                      <li className="flex items-start">
+                        <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                        <span>Audit log and re-analyze workflows for auditability and iteration</span>
+                      </li>
                     </ul>
                   </div>
                 </div>

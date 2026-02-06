@@ -28,6 +28,8 @@ export const PLANS: Plan[] = [
       "Regulatory Risk Chat",
       "Dispute Response",
       "Jurisdiction-Specific Rules",
+      "Risk Trends dashboard & Audit Log",
+      "Regulatory Radar & monitoring rules",
       "Downloadable improvements"
     ],
     documentCount: 1,
@@ -44,7 +46,8 @@ export const PLANS: Plan[] = [
       "Side-by-side comparison",
       "Advanced clause explanations",
       "Downloadable improvements",
-      "Download summary report"
+      "Download summary report",
+      "Risk Trends dashboard & Audit Log"
     ],
     notIncluded: [
       "Compliant Agreement Generator",
@@ -70,7 +73,9 @@ export const PLANS: Plan[] = [
       "Compliant Agreement Generator",
       "Regulatory Risk Chat",
       "Dispute Response",
-      "Jurisdiction-Specific Rules"
+      "Jurisdiction-Specific Rules",
+      "Risk Trends dashboard & Audit Log",
+      "Regulatory Radar, monitoring rules & re-analyze"
     ],
     highlight: true,
     documentCount: "unlimited",

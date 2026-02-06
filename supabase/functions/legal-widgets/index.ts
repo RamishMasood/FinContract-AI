@@ -211,11 +211,19 @@ async function queryDeepSeek(system: string, user: string, type?: string) {
     { role: "system", content: system },
     { role: "user", content: user }
   ];
+  const maxTokens =
+    type === "proactive_alerts"
+      ? 2000
+      : type === "nda_agreement"
+      ? 3500
+      : 1200;
+  const temperature = type === "proactive_alerts" ? 0.1 : 0.3;
+
   const body = {
     model: 'deepseek-chat',
     messages,
-    max_tokens: type === 'proactive_alerts' ? 2000 : 1200,
-    temperature: type === 'proactive_alerts' ? 0.1 : 0.3
+    max_tokens: maxTokens,
+    temperature
   };
   try {
     const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
