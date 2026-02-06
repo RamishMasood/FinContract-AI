@@ -90,7 +90,7 @@ const Index = () => {
 
           {/* Headline */}
           <h1 className="font-extrabold text-xl xs:text-2xl sm:text-[2.4rem] md:text-[3.6rem] leading-[1.07] max-w-4xl mx-auto mb-2 sm:mb-3 text-slate-900">
-            FinContract AI:{" "}
+         
             <span className="block md:inline font-extrabold bg-gradient-to-r from-[#1e3a5f] via-[#2563eb] to-[#059669] text-transparent bg-clip-text">
               AI-Powered Risk Intelligence<br className="sm:hidden" />
             </span>{" "}
@@ -98,11 +98,11 @@ const Index = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-slate-600 text-sm xs:text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto mb-4">
-            Instantly scan trading contracts for high-leverage risks, margin call issues, regulatory non-compliance, fraud clauses, and get smart fixes – built for brokers, fintech, and finance ops like Deriv.
+          <p className="text-slate-600 text-sm xs:text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto mb-3 sm:mb-4">
+            Instantly scan CFDs, futures, and client agreements for leverage, margin, and compliance risks – with AI suggestions to fix them.
           </p>
           <p className="text-slate-500 text-sm xs:text-base max-w-2xl mx-auto mb-6 sm:mb-9">
-            Upload any CFD, futures, client agreement, or ISDA doc – FinContract AI flags unlimited liability risks, unilateral broker powers, missing suitability checks, and suggests compliant improvements in seconds.
+            Upload a trading contract and get red flags, risk scores, compliant edits, and regulatory checks in seconds – built for brokers, fintech, and Deriv‑style platforms.
           </p>
 
           {/* CTA Button */}

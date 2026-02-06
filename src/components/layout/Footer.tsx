@@ -86,11 +86,11 @@ const Footer = () => {
                 Powered By
                 <img
                   src={FastEndLogo}
-                  alt="FastEnd Technologies Logo"
+                  alt="FastEnd Team"
                   style={{ width: 24, height: 24, objectFit: "contain" }}
                 />
                 <span className=" text-black">
-                FastEnd Technologies &amp; Services
+                FastEnd Team
                 </span>
               </span>
             </div>
