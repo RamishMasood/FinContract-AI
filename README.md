@@ -11,6 +11,7 @@ FinContract AI is a comprehensive legal-tech solution designed for brokers, fint
 Instantly audit your trading agreements (PDF/DOCX/Text).
 -   **Deep Risk Detection**: Scans for 30+ toxic clauses including hidden leverage terms, unfair liquidation rules, and fraud indicators.
 -   **Smart Scoring**: Generates a **Compliance Risk Score** (0-100) and highlights **Red Flags** with severity levels.
+-   **Advanced Insights**: Includes **Predictive Suggestions** to forecast future risks and **Monitoring Rule Suggestions** for setting operational compliance alerts.
 -   **Auto-Suggestions**: Provides "Safe Rewrite" suggestions for risky clauses to help you negotiate better terms.
 
 ### 2. 📡 Regulatory Radar & Impact Analyzer
