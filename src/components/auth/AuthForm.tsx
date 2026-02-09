@@ -448,7 +448,7 @@ const AuthForm = ({ onAuthSuccess }: AuthFormProps) => {
                 <Label htmlFor="login-email">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
-                  <Input id="login-email" name="email" type="email" required placeholder="your.email@example.com" className="pl-10" defaultValue="ramishmasood4@gmail.com" />
+                  <Input id="login-email" name="email" type="email" required placeholder="your.email@example.com" className="pl-10"/>
                 </div>
               </div>
               <div className="space-y-2">
@@ -461,7 +461,6 @@ const AuthForm = ({ onAuthSuccess }: AuthFormProps) => {
                     type={showPassword ? "text" : "password"} 
                     required 
                     className="pl-10 pr-10"
-                    defaultValue="123456@Ramish"
                   />
                   <button 
                     type="button"
